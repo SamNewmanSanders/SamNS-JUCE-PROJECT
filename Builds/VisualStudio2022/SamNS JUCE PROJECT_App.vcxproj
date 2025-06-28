@@ -142,6 +142,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\AudioEngine.cpp"/>
+    <ClCompile Include="..\..\Source\Song.cpp"/>
+    <ClCompile Include="..\..\Source\SongMixer.cpp"/>
+    <ClCompile Include="..\..\Source\Stem.cpp"/>
+    <ClCompile Include="..\..\Source\StemMixer.cpp"/>
     <ClCompile Include="..\..\Source\Main.cpp"/>
     <ClCompile Include="..\..\Source\MainComponent.cpp"/>
     <ClCompile Include="..\..\..\..\..\JUCE\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.cpp">
@@ -2862,6 +2866,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\AudioEngine.h"/>
+    <ClInclude Include="..\..\Source\Song.h"/>
+    <ClInclude Include="..\..\Source\SongMixer.h"/>
+    <ClInclude Include="..\..\Source\Stem.h"/>
+    <ClInclude Include="..\..\Source\StemMixer.h"/>
     <ClInclude Include="..\..\Source\MainComponent.h"/>
     <ClInclude Include="..\..\..\..\..\JUCE\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h"/>
     <ClInclude Include="..\..\..\..\..\JUCE\modules\juce_audio_basics\buffers\juce_AudioChannelSet.h"/>

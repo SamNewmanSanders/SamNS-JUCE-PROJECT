@@ -1,22 +1,30 @@
 #pragma once
+
 #include <JuceHeader.h>
+#include "SongMixer.h"
 
 class AudioEngine
 {
 public:
-    AudioEngine() = default;
-    ~AudioEngine() = default;
+    AudioEngine();
+    ~AudioEngine();
 
-    /** Call once to set up device and start playing */
-    void init();
+    void initialise();  // Init device and audio chain
+    void shutdown();    // Shutdown device and cleanup
 
-    /** Call once to tear down and stop playing */
-    void shutdown();
+    void addSong(std::unique_ptr<Song> song);
+
+    void start();
+    void stop();
+
+
+    // Get functions
+    SongMixer& getSongMixer() { return songMixer; }
+    juce::AudioDeviceManager& getDeviceManager() { return deviceManager; }
 
 private:
-    juce::AudioDeviceManager            deviceManager;
-    juce::AudioFormatManager            formatManager;
-    std::unique_ptr<juce::AudioFormatReaderSource> readerSource;
-    juce::AudioTransportSource          transportSource;
-    juce::AudioSourcePlayer             sourcePlayer;
+    juce::AudioDeviceManager deviceManager;
+    juce::AudioSourcePlayer sourcePlayer;
+
+    SongMixer songMixer;
 };

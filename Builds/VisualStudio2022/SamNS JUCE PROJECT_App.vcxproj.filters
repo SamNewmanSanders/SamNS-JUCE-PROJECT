@@ -697,6 +697,18 @@
     <ClCompile Include="..\..\Source\AudioEngine.cpp">
       <Filter>SamNS JUCE PROJECT\Source\Audio</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Song.cpp">
+      <Filter>SamNS JUCE PROJECT\Source\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SongMixer.cpp">
+      <Filter>SamNS JUCE PROJECT\Source\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Stem.cpp">
+      <Filter>SamNS JUCE PROJECT\Source\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\StemMixer.cpp">
+      <Filter>SamNS JUCE PROJECT\Source\Audio</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Main.cpp">
       <Filter>SamNS JUCE PROJECT\Source</Filter>
     </ClCompile>
@@ -3577,6 +3589,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\AudioEngine.h">
+      <Filter>SamNS JUCE PROJECT\Source\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Song.h">
+      <Filter>SamNS JUCE PROJECT\Source\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SongMixer.h">
+      <Filter>SamNS JUCE PROJECT\Source\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Stem.h">
+      <Filter>SamNS JUCE PROJECT\Source\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\StemMixer.h">
       <Filter>SamNS JUCE PROJECT\Source\Audio</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\MainComponent.h">

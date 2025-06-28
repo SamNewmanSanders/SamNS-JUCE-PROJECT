@@ -7,6 +7,14 @@
       <GROUP id="{51370B49-A1DD-BB7F-3935-3FC7D64114AE}" name="Audio">
         <FILE id="QF1jMl" name="AudioEngine.cpp" compile="1" resource="0" file="Source/AudioEngine.cpp"/>
         <FILE id="kNu5r5" name="AudioEngine.h" compile="0" resource="0" file="Source/AudioEngine.h"/>
+        <FILE id="TElVIH" name="Song.cpp" compile="1" resource="0" file="Source/Song.cpp"/>
+        <FILE id="LXI65m" name="Song.h" compile="0" resource="0" file="Source/Song.h"/>
+        <FILE id="Ia16IP" name="SongMixer.cpp" compile="1" resource="0" file="Source/SongMixer.cpp"/>
+        <FILE id="bWvnfk" name="SongMixer.h" compile="0" resource="0" file="Source/SongMixer.h"/>
+        <FILE id="IDLvds" name="Stem.cpp" compile="1" resource="0" file="Source/Stem.cpp"/>
+        <FILE id="QaBZsS" name="Stem.h" compile="0" resource="0" file="Source/Stem.h"/>
+        <FILE id="KN4BMp" name="StemMixer.cpp" compile="1" resource="0" file="Source/StemMixer.cpp"/>
+        <FILE id="WJGhvw" name="StemMixer.h" compile="0" resource="0" file="Source/StemMixer.h"/>
       </GROUP>
       <FILE id="BZY8H2" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
       <FILE id="kateGf" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
