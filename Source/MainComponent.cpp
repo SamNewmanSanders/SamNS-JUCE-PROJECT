@@ -34,15 +34,12 @@ void MainComponent::resized()
 
 void MainComponent::addTestSong()
 {
+    auto songFolder = juce::File("C:/Personal Computing Stuff/Python/Song splitter/DJ SONGS + STEMS/100%");
 
-    // 2. Create your Song and add to SongMixer
-    auto songFile = juce::File("C:/FL STUDIO/FLsamples/Dr Dre & Snoop Dogg - Still D.R.E. (Acapella).mp3");
-    auto song = std::make_unique<Song>(songFile);
-    if (songFile.existsAsFile())
+    if (songFolder.exists() && songFolder.isDirectory())
     {
-        auto song = std::make_unique<Song>(songFile);
+        auto song = std::make_unique<Song>(songFolder); // constructor does loading
 
-        // Get sample rate & buffer size from AudioEngine’s device manager
         auto* device = audioEngine.getDeviceManager().getCurrentAudioDevice();
         if (device != nullptr)
         {
@@ -54,14 +51,12 @@ void MainComponent::addTestSong()
 
         song->start();
 
-        // Add the song to the engine's mixer
         audioEngine.addSong(std::move(song));
 
-		DBG("Song added: " << songFile.getFullPathName());
+        DBG("Song added: " << songFolder.getFullPathName());
     }
-
     else
     {
-        DBG("Song file does not exist: " << songFile.getFullPathName());
+        DBG("Song folder does not exist or is not a directory: " << songFolder.getFullPathName());
     }
 }

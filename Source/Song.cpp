@@ -1,45 +1,70 @@
 #include "Song.h"
 
-Song::Song(const juce::File& audioFile)
+Song::Song(const juce::File& folder)
 {
-    formatManager.registerBasicFormats();
-
-    if (audioFile.existsAsFile())
+	// Call the loadFromFolder method to load stems
+    if (!loadFromFolder(folder))
     {
-        if (auto* reader = formatManager.createReaderFor(audioFile))
-        {
-            readerSource.reset(new juce::AudioFormatReaderSource(reader, true));
-            transportSource.setSource(readerSource.get(),
-                0,      // no read ahead buffer (default)
-                nullptr, // no thread pool for background reading
-                reader->sampleRate);
-        }
+        DBG("Failed to load stems from folder: " << folder.getFullPathName());
     }
 }
 
 Song::~Song()
 {
-    transportSource.setSource(nullptr);
-    readerSource.reset();
+    releaseResources();
 }
 
+bool Song::loadFromFolder(const juce::File& folder)
+{
+    if (!folder.isDirectory())
+        return false;
+
+    static const juce::StringArray stemTypes = { "drums", "vocals", "bass", "other" };
+
+    for (const auto& stem : stemTypes)
+    {
+        juce::File stemFile = folder.getChildFile(stem + ".mp3");
+
+        if (stemFile.existsAsFile())
+        {
+            addStem(stemFile, stem);
+        }
+        else
+        {
+            DBG("Missing stem: " + stemFile.getFullPathName());
+        }
+    }
+
+    return true;
+}
+
+void Song::addStem(const juce::File& file, const juce::String& stemType)
+{
+    auto stem = std::make_unique<Stem>(file, stemType);
+    stemMixer.addStem(std::move(stem));
+}
 
 void Song::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
 {
-    transportSource.prepareToPlay(samplesPerBlockExpected, sampleRate);
+    stemMixer.prepareToPlay(samplesPerBlockExpected, sampleRate);
 }
 
 void Song::getNextAudioBlock(const juce::AudioSourceChannelInfo& bufferToFill)
 {
-    if (transportSource.isPlaying())
-        transportSource.getNextAudioBlock(bufferToFill);
-    else
-        bufferToFill.clearActiveBufferRegion();  // silence when stopped
+    stemMixer.getNextAudioBlock(bufferToFill);
 }
 
 void Song::releaseResources()
 {
-    transportSource.releaseResources();
+    stemMixer.releaseResources();
 }
 
+void Song::start()
+{
+    stemMixer.startAll();
+}
 
+void Song::stop()
+{
+    stemMixer.stopAll();
+}

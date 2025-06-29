@@ -1,23 +1,26 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "StemMixer.h"
 
 class Song : public juce::AudioSource
 {
 public:
-	Song(const juce::File& audioFile);
-	~Song();
+    explicit Song(const juce::File& folder);
+    ~Song() override;
 
-	void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override;
-	void getNextAudioBlock(const juce::AudioSourceChannelInfo& bufferToFill) override;
-	void releaseResources() override;
+    void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override;
+    void getNextAudioBlock(const juce::AudioSourceChannelInfo& bufferToFill) override;
+    void releaseResources() override;
 
-	void start() { transportSource.start(); }
-	void stop() { transportSource.stop(); }
+    void start();
+    void stop();
 
 private:
-	juce::AudioFormatManager formatManager;
-	std::unique_ptr<juce::AudioFormatReaderSource> readerSource;
-	juce::AudioTransportSource transportSource;
+    bool loadFromFolder(const juce::File& folder);
+    void addStem(const juce::File& file, const juce::String& stemType);
 
+    StemMixer stemMixer;
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Song)
 };
