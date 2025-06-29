@@ -1,7 +1,8 @@
 #pragma once
 
 #include <JuceHeader.h>
-#include "AudioEngine.h"
+#include "Audio/AudioEngine.h"
+#include "UI/MainUI.h"
 
 class MainComponent : public juce::Component
 {
@@ -12,11 +13,11 @@ public:
     void paint(juce::Graphics&) override;
     void resized() override;
 
-    void addTestSong();
-
 private:
 
-    AudioEngine audioEngine;
+    std::unique_ptr<MainController> mainController;
+    std::unique_ptr<MainUI> mainUI;
+	AudioEngine audioEngine;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainComponent)
 };

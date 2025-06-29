@@ -10,7 +10,7 @@ SongMixer::~SongMixer()
     // Destructor implementation (can be empty)
 }
 
-void SongMixer::addSong(std::unique_ptr<Song> song)
+void SongMixer::addSong(std::shared_ptr<Song> song)
 {
     songs.push_back(std::move(song));
 }

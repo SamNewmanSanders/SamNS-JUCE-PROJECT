@@ -2,6 +2,12 @@
 
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Filter Include="SamNS JUCE PROJECT\Source\Controllers">
+      <UniqueIdentifier>{E2472228-3AB0-1DE9-1923-E5EA42334223}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SamNS JUCE PROJECT\Source\UI">
+      <UniqueIdentifier>{1B68F7EF-A8CD-F5F6-9CBC-5A75B9581F55}</UniqueIdentifier>
+    </Filter>
     <Filter Include="SamNS JUCE PROJECT\Source\Audio">
       <UniqueIdentifier>{D07B40BF-76FD-D0E6-5E37-36A3FE0620FD}</UniqueIdentifier>
     </Filter>
@@ -694,19 +700,34 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\AudioEngine.cpp">
+    <ClCompile Include="..\..\Source\Controllers\MainController.cpp">
+      <Filter>SamNS JUCE PROJECT\Source\Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\UI\MainUI.cpp">
+      <Filter>SamNS JUCE PROJECT\Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\UI\SongBrowserComponent.cpp">
+      <Filter>SamNS JUCE PROJECT\Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\UI\SongComponent.cpp">
+      <Filter>SamNS JUCE PROJECT\Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\UI\StemComponent.cpp">
+      <Filter>SamNS JUCE PROJECT\Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Audio\AudioEngine.cpp">
       <Filter>SamNS JUCE PROJECT\Source\Audio</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Song.cpp">
+    <ClCompile Include="..\..\Source\Audio\Song.cpp">
       <Filter>SamNS JUCE PROJECT\Source\Audio</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\SongMixer.cpp">
+    <ClCompile Include="..\..\Source\Audio\SongMixer.cpp">
       <Filter>SamNS JUCE PROJECT\Source\Audio</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Stem.cpp">
+    <ClCompile Include="..\..\Source\Audio\Stem.cpp">
       <Filter>SamNS JUCE PROJECT\Source\Audio</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\StemMixer.cpp">
+    <ClCompile Include="..\..\Source\Audio\StemMixer.cpp">
       <Filter>SamNS JUCE PROJECT\Source\Audio</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Main.cpp">
@@ -3588,19 +3609,34 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\AudioEngine.h">
+    <ClInclude Include="..\..\Source\Controllers\MainController.h">
+      <Filter>SamNS JUCE PROJECT\Source\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\UI\MainUI.h">
+      <Filter>SamNS JUCE PROJECT\Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\UI\SongBrowserComponent.h">
+      <Filter>SamNS JUCE PROJECT\Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\UI\SongComponent.h">
+      <Filter>SamNS JUCE PROJECT\Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\UI\StemComponent.h">
+      <Filter>SamNS JUCE PROJECT\Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Audio\AudioEngine.h">
       <Filter>SamNS JUCE PROJECT\Source\Audio</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Song.h">
+    <ClInclude Include="..\..\Source\Audio\Song.h">
       <Filter>SamNS JUCE PROJECT\Source\Audio</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\SongMixer.h">
+    <ClInclude Include="..\..\Source\Audio\SongMixer.h">
       <Filter>SamNS JUCE PROJECT\Source\Audio</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Stem.h">
+    <ClInclude Include="..\..\Source\Audio\Stem.h">
       <Filter>SamNS JUCE PROJECT\Source\Audio</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\StemMixer.h">
+    <ClInclude Include="..\..\Source\Audio\StemMixer.h">
       <Filter>SamNS JUCE PROJECT\Source\Audio</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\MainComponent.h">

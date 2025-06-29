@@ -12,10 +12,10 @@ public:
     void initialise();  // Init device and audio chain
     void shutdown();    // Shutdown device and cleanup
 
-    void addSong(std::unique_ptr<Song> song);
+    void addSong(std::shared_ptr<Song> song);
 
-    void start();
-    void stop();
+    void startAll();
+    void stopAll();
 
 
     // Get functions

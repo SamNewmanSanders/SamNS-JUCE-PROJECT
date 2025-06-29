@@ -1,14 +1,14 @@
 #pragma once
 #include <JuceHeader.h>
-#include "Stem.h"
+#include "Song.h"
 
-class StemMixer : public juce::AudioSource
+class SongMixer : public juce::AudioSource
 {
 public:
-    StemMixer();
-    ~StemMixer();
+    SongMixer();
+    ~SongMixer();
 
-    void addStem(std::unique_ptr<Stem> Stem);
+    void addSong(std::shared_ptr<Song> song);
 
 
     // AudioSource interface
@@ -20,5 +20,5 @@ public:
     void stopAll();
 
 private:
-    std::vector<std::unique_ptr<Stem>> Stems;
+    std::vector<std::shared_ptr<Song>> songs;
 };

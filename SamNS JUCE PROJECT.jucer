@@ -4,17 +4,37 @@
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
   <MAINGROUP id="T7jAan" name="SamNS JUCE PROJECT">
     <GROUP id="{72816E61-48FC-5D00-58BE-C433B76E56BF}" name="Source">
+      <GROUP id="{635BFE02-C665-A963-0193-414E5DDF1053}" name="Controllers">
+        <FILE id="zOaycd" name="MainController.cpp" compile="1" resource="0"
+              file="Source/Controllers/MainController.cpp"/>
+        <FILE id="Wh9SFI" name="MainController.h" compile="0" resource="0"
+              file="Source/Controllers/MainController.h"/>
+      </GROUP>
+      <GROUP id="{13FC8707-F1AC-460B-E85C-88ADB93CA258}" name="UI">
+        <FILE id="cyBnn5" name="MainUI.cpp" compile="1" resource="0" file="Source/UI/MainUI.cpp"/>
+        <FILE id="jMeLjI" name="MainUI.h" compile="0" resource="0" file="Source/UI/MainUI.h"/>
+        <FILE id="zdq74f" name="SongBrowserComponent.cpp" compile="1" resource="0"
+              file="Source/UI/SongBrowserComponent.cpp"/>
+        <FILE id="AFDujZ" name="SongBrowserComponent.h" compile="0" resource="0"
+              file="Source/UI/SongBrowserComponent.h"/>
+        <FILE id="OWhjPr" name="SongComponent.cpp" compile="1" resource="0"
+              file="Source/UI/SongComponent.cpp"/>
+        <FILE id="WHTrMy" name="SongComponent.h" compile="0" resource="0" file="Source/UI/SongComponent.h"/>
+        <FILE id="WvaGja" name="StemComponent.cpp" compile="1" resource="0"
+              file="Source/UI/StemComponent.cpp"/>
+        <FILE id="yEf6TC" name="StemComponent.h" compile="0" resource="0" file="Source/UI/StemComponent.h"/>
+      </GROUP>
       <GROUP id="{51370B49-A1DD-BB7F-3935-3FC7D64114AE}" name="Audio">
-        <FILE id="QF1jMl" name="AudioEngine.cpp" compile="1" resource="0" file="Source/AudioEngine.cpp"/>
-        <FILE id="kNu5r5" name="AudioEngine.h" compile="0" resource="0" file="Source/AudioEngine.h"/>
-        <FILE id="TElVIH" name="Song.cpp" compile="1" resource="0" file="Source/Song.cpp"/>
-        <FILE id="LXI65m" name="Song.h" compile="0" resource="0" file="Source/Song.h"/>
-        <FILE id="Ia16IP" name="SongMixer.cpp" compile="1" resource="0" file="Source/SongMixer.cpp"/>
-        <FILE id="bWvnfk" name="SongMixer.h" compile="0" resource="0" file="Source/SongMixer.h"/>
-        <FILE id="IDLvds" name="Stem.cpp" compile="1" resource="0" file="Source/Stem.cpp"/>
-        <FILE id="QaBZsS" name="Stem.h" compile="0" resource="0" file="Source/Stem.h"/>
-        <FILE id="KN4BMp" name="StemMixer.cpp" compile="1" resource="0" file="Source/StemMixer.cpp"/>
-        <FILE id="WJGhvw" name="StemMixer.h" compile="0" resource="0" file="Source/StemMixer.h"/>
+        <FILE id="JB4yBZ" name="AudioEngine.cpp" compile="1" resource="0" file="Source/Audio/AudioEngine.cpp"/>
+        <FILE id="uzJzsQ" name="AudioEngine.h" compile="0" resource="0" file="Source/Audio/AudioEngine.h"/>
+        <FILE id="CbRriI" name="Song.cpp" compile="1" resource="0" file="Source/Audio/Song.cpp"/>
+        <FILE id="e61Xdv" name="Song.h" compile="0" resource="0" file="Source/Audio/Song.h"/>
+        <FILE id="an7wOU" name="SongMixer.cpp" compile="1" resource="0" file="Source/Audio/SongMixer.cpp"/>
+        <FILE id="QMGSlI" name="SongMixer.h" compile="0" resource="0" file="Source/Audio/SongMixer.h"/>
+        <FILE id="OeeJAq" name="Stem.cpp" compile="1" resource="0" file="Source/Audio/Stem.cpp"/>
+        <FILE id="AvxHUE" name="Stem.h" compile="0" resource="0" file="Source/Audio/Stem.h"/>
+        <FILE id="sFQglK" name="StemMixer.cpp" compile="1" resource="0" file="Source/Audio/StemMixer.cpp"/>
+        <FILE id="wFOlo4" name="StemMixer.h" compile="0" resource="0" file="Source/Audio/StemMixer.h"/>
       </GROUP>
       <FILE id="BZY8H2" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
       <FILE id="kateGf" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>

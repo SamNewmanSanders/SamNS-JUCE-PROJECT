@@ -10,7 +10,7 @@ StemMixer::~StemMixer()
     // Destructor implementation (can be empty)
 }
 
-void StemMixer::addStem(std::unique_ptr<Stem> Stem)
+void StemMixer::addStem(std::shared_ptr<Stem> Stem)
 {
     Stems.push_back(std::move(Stem));
 }

@@ -1,6 +1,7 @@
 #include "Song.h"
 
-Song::Song(const juce::File& folder)
+Song::Song(const juce::File& folder, juce::String songName)
+	:songName(songName)
 {
 	// Call the loadFromFolder method to load stems
     if (!loadFromFolder(folder))

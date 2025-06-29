@@ -141,11 +141,16 @@
     <Lib/>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\AudioEngine.cpp"/>
-    <ClCompile Include="..\..\Source\Song.cpp"/>
-    <ClCompile Include="..\..\Source\SongMixer.cpp"/>
-    <ClCompile Include="..\..\Source\Stem.cpp"/>
-    <ClCompile Include="..\..\Source\StemMixer.cpp"/>
+    <ClCompile Include="..\..\Source\Controllers\MainController.cpp"/>
+    <ClCompile Include="..\..\Source\UI\MainUI.cpp"/>
+    <ClCompile Include="..\..\Source\UI\SongBrowserComponent.cpp"/>
+    <ClCompile Include="..\..\Source\UI\SongComponent.cpp"/>
+    <ClCompile Include="..\..\Source\UI\StemComponent.cpp"/>
+    <ClCompile Include="..\..\Source\Audio\AudioEngine.cpp"/>
+    <ClCompile Include="..\..\Source\Audio\Song.cpp"/>
+    <ClCompile Include="..\..\Source\Audio\SongMixer.cpp"/>
+    <ClCompile Include="..\..\Source\Audio\Stem.cpp"/>
+    <ClCompile Include="..\..\Source\Audio\StemMixer.cpp"/>
     <ClCompile Include="..\..\Source\Main.cpp"/>
     <ClCompile Include="..\..\Source\MainComponent.cpp"/>
     <ClCompile Include="..\..\..\..\..\JUCE\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.cpp">
@@ -2865,11 +2870,16 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_gui_extra.cpp"/>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\AudioEngine.h"/>
-    <ClInclude Include="..\..\Source\Song.h"/>
-    <ClInclude Include="..\..\Source\SongMixer.h"/>
-    <ClInclude Include="..\..\Source\Stem.h"/>
-    <ClInclude Include="..\..\Source\StemMixer.h"/>
+    <ClInclude Include="..\..\Source\Controllers\MainController.h"/>
+    <ClInclude Include="..\..\Source\UI\MainUI.h"/>
+    <ClInclude Include="..\..\Source\UI\SongBrowserComponent.h"/>
+    <ClInclude Include="..\..\Source\UI\SongComponent.h"/>
+    <ClInclude Include="..\..\Source\UI\StemComponent.h"/>
+    <ClInclude Include="..\..\Source\Audio\AudioEngine.h"/>
+    <ClInclude Include="..\..\Source\Audio\Song.h"/>
+    <ClInclude Include="..\..\Source\Audio\SongMixer.h"/>
+    <ClInclude Include="..\..\Source\Audio\Stem.h"/>
+    <ClInclude Include="..\..\Source\Audio\StemMixer.h"/>
     <ClInclude Include="..\..\Source\MainComponent.h"/>
     <ClInclude Include="..\..\..\..\..\JUCE\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.h"/>
     <ClInclude Include="..\..\..\..\..\JUCE\modules\juce_audio_basics\buffers\juce_AudioChannelSet.h"/>

@@ -43,19 +43,30 @@ void AudioEngine::shutdown()
     deviceManager.closeAudioDevice();
 }
 
-void AudioEngine::addSong(std::unique_ptr<Song> song)
+void AudioEngine::addSong(std::shared_ptr<Song> song)
 {
-    const juce::ScopedLock sl(deviceManager.getAudioCallbackLock()); // Corrected method name  
+    const juce::ScopedLock sl(deviceManager.getAudioCallbackLock());
+
+    // 1) Prepare the song now that we know the device settings:
+    if (auto* dev = deviceManager.getCurrentAudioDevice())
+        song->prepareToPlay(dev->getCurrentBufferSizeSamples(),
+            dev->getCurrentSampleRate());
+
+    // 2) Add it to the mixer
     songMixer.addSong(std::move(song));
+    DBG("AudioEngine added song to mixer");
+
+    // 3) Start playback
+    //start();
 }
 
-void AudioEngine::start()
+void AudioEngine::startAll()
 {
     const juce::ScopedLock sl(deviceManager.getAudioCallbackLock()); // Corrected method name  
     songMixer.startAll();
 }
 
-void AudioEngine::stop()
+void AudioEngine::stopAll()
 {
     const juce::ScopedLock sl(deviceManager.getAudioCallbackLock()); // Corrected method name  
     songMixer.stopAll();
