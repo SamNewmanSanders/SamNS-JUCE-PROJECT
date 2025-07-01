@@ -4,28 +4,74 @@
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
   <MAINGROUP id="T7jAan" name="SamNS JUCE PROJECT">
     <GROUP id="{72816E61-48FC-5D00-58BE-C433B76E56BF}" name="Source">
-      <GROUP id="{B107F683-ED0B-21AC-28C4-D81B4AF9812E}" name="Helpers">
-        <FILE id="ohRvZu" name="StemType.h" compile="0" resource="0" file="Source/Helpers/StemType.h"/>
-      </GROUP>
-      <GROUP id="{635BFE02-C665-A963-0193-414E5DDF1053}" name="Controllers">
-        <FILE id="zOaycd" name="SessionManager.cpp" compile="1" resource="0"
+      <GROUP id="{1269FDAB-1EB4-B1D5-95F2-65784F4FD889}" name="Controllers">
+        <FILE id="Gvt53E" name="SessionManager.cpp" compile="1" resource="0"
               file="Source/Controllers/SessionManager.cpp"/>
-        <FILE id="Wh9SFI" name="SessionManager.h" compile="0" resource="0"
+        <FILE id="iRliWe" name="SessionManager.h" compile="0" resource="0"
               file="Source/Controllers/SessionManager.h"/>
       </GROUP>
-      <GROUP id="{13FC8707-F1AC-460B-E85C-88ADB93CA258}" name="UI">
-        <FILE id="cyBnn5" name="MainUI.cpp" compile="1" resource="0" file="Source/UI/MainUI.cpp"/>
-        <FILE id="jMeLjI" name="MainUI.h" compile="0" resource="0" file="Source/UI/MainUI.h"/>
-        <FILE id="zdq74f" name="SongBrowserComponent.cpp" compile="1" resource="0"
+      <GROUP id="{3965D8C8-A58E-032B-1C55-661C28281F9E}" name="Helpers">
+        <FILE id="Ts3cIB" name="StemType.h" compile="0" resource="0" file="Source/Helpers/StemType.h"/>
+      </GROUP>
+      <GROUP id="{DD35BC02-06CF-05BA-BB16-93ABD84EA15D}" name="UI">
+        <FILE id="xCmeVV" name="MainUI.cpp" compile="1" resource="0" file="Source/UI/MainUI.cpp"/>
+        <FILE id="aqq94X" name="MainUI.h" compile="0" resource="0" file="Source/UI/MainUI.h"/>
+        <FILE id="JoPFO1" name="SongBrowserComponent.cpp" compile="1" resource="0"
               file="Source/UI/SongBrowserComponent.cpp"/>
-        <FILE id="AFDujZ" name="SongBrowserComponent.h" compile="0" resource="0"
+        <FILE id="Oz1L4z" name="SongBrowserComponent.h" compile="0" resource="0"
               file="Source/UI/SongBrowserComponent.h"/>
-        <FILE id="OWhjPr" name="SongComponent.cpp" compile="1" resource="0"
+        <FILE id="ZLKFCb" name="SongComponent.cpp" compile="1" resource="0"
               file="Source/UI/SongComponent.cpp"/>
-        <FILE id="WHTrMy" name="SongComponent.h" compile="0" resource="0" file="Source/UI/SongComponent.h"/>
-        <FILE id="WvaGja" name="StemComponent.cpp" compile="1" resource="0"
+        <FILE id="tOUhsu" name="SongComponent.h" compile="0" resource="0" file="Source/UI/SongComponent.h"/>
+        <FILE id="C4Uley" name="StemComponent.cpp" compile="1" resource="0"
               file="Source/UI/StemComponent.cpp"/>
-        <FILE id="yEf6TC" name="StemComponent.h" compile="0" resource="0" file="Source/UI/StemComponent.h"/>
+        <FILE id="N3fyzj" name="StemComponent.h" compile="0" resource="0" file="Source/UI/StemComponent.h"/>
+      </GROUP>
+      <GROUP id="{9CBFEB82-D982-DE0C-A9DD-730F7E939215}" name="SoundTorch">
+        <FILE id="ao8nRZ" name="AAFilter.cpp" compile="1" resource="0" file="Source/SoundTorch/AAFilter.cpp"/>
+        <FILE id="JOX3JT" name="AAFilter.h" compile="0" resource="0" file="Source/SoundTorch/AAFilter.h"/>
+        <FILE id="o8INmj" name="BPMDetect.cpp" compile="1" resource="0" file="Source/SoundTorch/BPMDetect.cpp"/>
+        <FILE id="i3lM0N" name="BPMDetect.h" compile="0" resource="0" file="Source/SoundTorch/BPMDetect.h"/>
+        <FILE id="ETHAQX" name="cpu_detect.h" compile="0" resource="0" file="Source/SoundTorch/cpu_detect.h"/>
+        <FILE id="u9Y3l2" name="cpu_detect_x86.cpp" compile="1" resource="0"
+              file="Source/SoundTorch/cpu_detect_x86.cpp"/>
+        <FILE id="zwUl0X" name="FIFOSampleBuffer.cpp" compile="1" resource="0"
+              file="Source/SoundTorch/FIFOSampleBuffer.cpp"/>
+        <FILE id="jo5rT9" name="FIFOSampleBuffer.h" compile="0" resource="0"
+              file="Source/SoundTorch/FIFOSampleBuffer.h"/>
+        <FILE id="YGr6OB" name="FIFOSamplePipe.h" compile="0" resource="0"
+              file="Source/SoundTorch/FIFOSamplePipe.h"/>
+        <FILE id="fu64Ik" name="FIRFilter.cpp" compile="1" resource="0" file="Source/SoundTorch/FIRFilter.cpp"/>
+        <FILE id="M1VxBP" name="FIRFilter.h" compile="0" resource="0" file="Source/SoundTorch/FIRFilter.h"/>
+        <FILE id="pduc3j" name="InterpolateCubic.cpp" compile="1" resource="0"
+              file="Source/SoundTorch/InterpolateCubic.cpp"/>
+        <FILE id="YoaN5M" name="InterpolateCubic.h" compile="0" resource="0"
+              file="Source/SoundTorch/InterpolateCubic.h"/>
+        <FILE id="Jy5wn6" name="InterpolateLinear.cpp" compile="1" resource="0"
+              file="Source/SoundTorch/InterpolateLinear.cpp"/>
+        <FILE id="Ufef8P" name="InterpolateLinear.h" compile="0" resource="0"
+              file="Source/SoundTorch/InterpolateLinear.h"/>
+        <FILE id="alR0UJ" name="InterpolateShannon.cpp" compile="1" resource="0"
+              file="Source/SoundTorch/InterpolateShannon.cpp"/>
+        <FILE id="Q9oeth" name="InterpolateShannon.h" compile="0" resource="0"
+              file="Source/SoundTorch/InterpolateShannon.h"/>
+        <FILE id="CesNUC" name="mmx_optimized.cpp" compile="1" resource="0"
+              file="Source/SoundTorch/mmx_optimized.cpp"/>
+        <FILE id="TddmhC" name="PeakFinder.cpp" compile="1" resource="0" file="Source/SoundTorch/PeakFinder.cpp"/>
+        <FILE id="z7RzN9" name="PeakFinder.h" compile="0" resource="0" file="Source/SoundTorch/PeakFinder.h"/>
+        <FILE id="zHFEZ8" name="RateTransposer.cpp" compile="1" resource="0"
+              file="Source/SoundTorch/RateTransposer.cpp"/>
+        <FILE id="bcHWB2" name="RateTransposer.h" compile="0" resource="0"
+              file="Source/SoundTorch/RateTransposer.h"/>
+        <FILE id="TVNV8i" name="SoundTouch.cpp" compile="1" resource="0" file="Source/SoundTorch/SoundTouch.cpp"/>
+        <FILE id="kaO7ic" name="SoundTouch.h" compile="0" resource="0" file="Source/SoundTorch/SoundTouch.h"/>
+        <FILE id="ZXWLWX" name="soundtouch_config.h" compile="0" resource="0"
+              file="Source/SoundTorch/soundtouch_config.h"/>
+        <FILE id="h8wMtk" name="sse_optimized.cpp" compile="1" resource="0"
+              file="Source/SoundTorch/sse_optimized.cpp"/>
+        <FILE id="NK9mpu" name="STTypes.h" compile="0" resource="0" file="Source/SoundTorch/STTypes.h"/>
+        <FILE id="ZeoCEA" name="TDStretch.cpp" compile="1" resource="0" file="Source/SoundTorch/TDStretch.cpp"/>
+        <FILE id="lFhWHc" name="TDStretch.h" compile="0" resource="0" file="Source/SoundTorch/TDStretch.h"/>
       </GROUP>
       <GROUP id="{51370B49-A1DD-BB7F-3935-3FC7D64114AE}" name="Audio">
         <FILE id="JB4yBZ" name="AudioEngine.cpp" compile="1" resource="0" file="Source/Audio/AudioEngine.cpp"/>

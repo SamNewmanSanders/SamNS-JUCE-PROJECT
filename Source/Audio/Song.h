@@ -4,6 +4,9 @@
 #include "StemMixer.h"
 #include "../Helpers/StemType.h"
 
+#include "../SoundTorch/SoundTouch.h"
+
+
 class Song : public juce::AudioSource
 {
 public:
@@ -23,13 +26,20 @@ public:
 
 	juce::String getName() const { return songName; }
 
+    void setTempoRatio(float newRatio); // for stretching
+
 private:
+
     bool loadFromFolder(const juce::File& folder);
     void addStem(const juce::File& file, StemType stemType);
 
     StemMixer stemMixer;
 
 	juce::String songName;
+
+    soundtouch::SoundTouch soundTouch;
+    juce::AudioBuffer<float> tempBuffer;  // buffer to hold mixed stems for processing
+    float currentTempoRatio = 1.1f;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Song)
 };

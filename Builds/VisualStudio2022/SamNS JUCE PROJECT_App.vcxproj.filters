@@ -2,14 +2,17 @@
 
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="SamNS JUCE PROJECT\Source\Helpers">
-      <UniqueIdentifier>{F7385F83-D24D-F65B-A36A-42BD502DF31A}</UniqueIdentifier>
-    </Filter>
     <Filter Include="SamNS JUCE PROJECT\Source\Controllers">
       <UniqueIdentifier>{E2472228-3AB0-1DE9-1923-E5EA42334223}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SamNS JUCE PROJECT\Source\Helpers">
+      <UniqueIdentifier>{F7385F83-D24D-F65B-A36A-42BD502DF31A}</UniqueIdentifier>
+    </Filter>
     <Filter Include="SamNS JUCE PROJECT\Source\UI">
       <UniqueIdentifier>{1B68F7EF-A8CD-F5F6-9CBC-5A75B9581F55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SamNS JUCE PROJECT\Source\SoundTorch">
+      <UniqueIdentifier>{03AF18C5-DC1E-C658-56AA-ED9E2FB14C73}</UniqueIdentifier>
     </Filter>
     <Filter Include="SamNS JUCE PROJECT\Source\Audio">
       <UniqueIdentifier>{D07B40BF-76FD-D0E6-5E37-36A3FE0620FD}</UniqueIdentifier>
@@ -717,6 +720,48 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\UI\StemComponent.cpp">
       <Filter>SamNS JUCE PROJECT\Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SoundTorch\AAFilter.cpp">
+      <Filter>SamNS JUCE PROJECT\Source\SoundTorch</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SoundTorch\BPMDetect.cpp">
+      <Filter>SamNS JUCE PROJECT\Source\SoundTorch</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SoundTorch\cpu_detect_x86.cpp">
+      <Filter>SamNS JUCE PROJECT\Source\SoundTorch</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SoundTorch\FIFOSampleBuffer.cpp">
+      <Filter>SamNS JUCE PROJECT\Source\SoundTorch</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SoundTorch\FIRFilter.cpp">
+      <Filter>SamNS JUCE PROJECT\Source\SoundTorch</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SoundTorch\InterpolateCubic.cpp">
+      <Filter>SamNS JUCE PROJECT\Source\SoundTorch</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SoundTorch\InterpolateLinear.cpp">
+      <Filter>SamNS JUCE PROJECT\Source\SoundTorch</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SoundTorch\InterpolateShannon.cpp">
+      <Filter>SamNS JUCE PROJECT\Source\SoundTorch</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SoundTorch\mmx_optimized.cpp">
+      <Filter>SamNS JUCE PROJECT\Source\SoundTorch</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SoundTorch\PeakFinder.cpp">
+      <Filter>SamNS JUCE PROJECT\Source\SoundTorch</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SoundTorch\RateTransposer.cpp">
+      <Filter>SamNS JUCE PROJECT\Source\SoundTorch</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SoundTorch\SoundTouch.cpp">
+      <Filter>SamNS JUCE PROJECT\Source\SoundTorch</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SoundTorch\sse_optimized.cpp">
+      <Filter>SamNS JUCE PROJECT\Source\SoundTorch</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SoundTorch\TDStretch.cpp">
+      <Filter>SamNS JUCE PROJECT\Source\SoundTorch</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Audio\AudioEngine.cpp">
       <Filter>SamNS JUCE PROJECT\Source\Audio</Filter>
@@ -3612,11 +3657,11 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\Helpers\StemType.h">
-      <Filter>SamNS JUCE PROJECT\Source\Helpers</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\Controllers\SessionManager.h">
       <Filter>SamNS JUCE PROJECT\Source\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Helpers\StemType.h">
+      <Filter>SamNS JUCE PROJECT\Source\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\UI\MainUI.h">
       <Filter>SamNS JUCE PROJECT\Source\UI</Filter>
@@ -3629,6 +3674,51 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\UI\StemComponent.h">
       <Filter>SamNS JUCE PROJECT\Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SoundTorch\AAFilter.h">
+      <Filter>SamNS JUCE PROJECT\Source\SoundTorch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SoundTorch\BPMDetect.h">
+      <Filter>SamNS JUCE PROJECT\Source\SoundTorch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SoundTorch\cpu_detect.h">
+      <Filter>SamNS JUCE PROJECT\Source\SoundTorch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SoundTorch\FIFOSampleBuffer.h">
+      <Filter>SamNS JUCE PROJECT\Source\SoundTorch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SoundTorch\FIFOSamplePipe.h">
+      <Filter>SamNS JUCE PROJECT\Source\SoundTorch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SoundTorch\FIRFilter.h">
+      <Filter>SamNS JUCE PROJECT\Source\SoundTorch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SoundTorch\InterpolateCubic.h">
+      <Filter>SamNS JUCE PROJECT\Source\SoundTorch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SoundTorch\InterpolateLinear.h">
+      <Filter>SamNS JUCE PROJECT\Source\SoundTorch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SoundTorch\InterpolateShannon.h">
+      <Filter>SamNS JUCE PROJECT\Source\SoundTorch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SoundTorch\PeakFinder.h">
+      <Filter>SamNS JUCE PROJECT\Source\SoundTorch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SoundTorch\RateTransposer.h">
+      <Filter>SamNS JUCE PROJECT\Source\SoundTorch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SoundTorch\SoundTouch.h">
+      <Filter>SamNS JUCE PROJECT\Source\SoundTorch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SoundTorch\soundtouch_config.h">
+      <Filter>SamNS JUCE PROJECT\Source\SoundTorch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SoundTorch\STTypes.h">
+      <Filter>SamNS JUCE PROJECT\Source\SoundTorch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SoundTorch\TDStretch.h">
+      <Filter>SamNS JUCE PROJECT\Source\SoundTorch</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Audio\AudioEngine.h">
       <Filter>SamNS JUCE PROJECT\Source\Audio</Filter>
