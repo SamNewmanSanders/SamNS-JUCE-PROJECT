@@ -23,24 +23,25 @@ void StemMixer::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
 
 void StemMixer::getNextAudioBlock(const juce::AudioSourceChannelInfo& bufferToFill)
 {
-    // Clear output buffer before mixing
     bufferToFill.clearActiveBufferRegion();
 
-    // Temporary buffer for mixing each Stem
     juce::AudioBuffer<float> mixBuffer(bufferToFill.buffer->getNumChannels(), bufferToFill.numSamples);
     juce::AudioSourceChannelInfo mixInfo(&mixBuffer, 0, bufferToFill.numSamples);
 
-    for (auto& Stem : Stems)
+    for (auto& stem : Stems)
     {
-        mixBuffer.clear();
-        Stem->getNextAudioBlock(mixInfo);
+        if (stem->isMuted())
+            continue; // skip muted stem
 
-        // Mix this Stem's buffer into the output buffer
+        mixBuffer.clear();
+        stem->getNextAudioBlock(mixInfo);
+
         for (int channel = 0; channel < bufferToFill.buffer->getNumChannels(); ++channel)
             bufferToFill.buffer->addFrom(channel, bufferToFill.startSample,
                 mixBuffer, channel, 0, bufferToFill.numSamples);
     }
 }
+
 
 void StemMixer::releaseResources()
 {
@@ -62,5 +63,16 @@ void StemMixer::stopAll()
     for (auto& Stem : Stems)
     {
         Stem->stop();
+    }
+}
+
+void StemMixer::setStemMute(StemType stemType, bool mute)
+{
+    for (auto& stem : Stems)
+    {
+        if (stem->getStemType() == stemType)
+        {
+            stem->setMuted(mute); // use new Stem method
+        }
     }
 }

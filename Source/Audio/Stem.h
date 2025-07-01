@@ -1,11 +1,12 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "../Helpers/StemType.h"
 
 class Stem : public juce::AudioSource
 {
 public:
-    Stem(const juce::File& audioFile, const juce::String& stemType);
+    Stem(const juce::File& audioFile, StemType stemType);
     ~Stem();
 
     void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override;
@@ -15,10 +16,14 @@ public:
     void start() { transportSource.start(); }
     void stop() { transportSource.stop(); }
 
-    juce::String getStemType() const { return stemType; } // getter for stem type
+    void setMuted(bool shouldMute) { muted = shouldMute;  }
+    bool isMuted() const { return muted; }
+
+    StemType getStemType() const { return stemType; } // getter for stem type
 
 private:
-    juce::String stemType;  // Store the stem type ("vocals", "drums", etc.)
+    StemType stemType;  // Store the stem type ("vocals", "drums", etc.)
+    bool muted = false;
 
     juce::AudioFormatManager formatManager;
     std::unique_ptr<juce::AudioFormatReaderSource> readerSource;

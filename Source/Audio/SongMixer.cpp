@@ -1,4 +1,5 @@
 #include "SongMixer.h"
+#include "../UI/StemComponent.h" // For StemType enum
 
 SongMixer::SongMixer()
 {
@@ -13,6 +14,15 @@ SongMixer::~SongMixer()
 void SongMixer::addSong(std::shared_ptr<Song> song)
 {
     songs.push_back(std::move(song));
+}
+
+void SongMixer::removeSong(std::shared_ptr<Song> song)
+{
+	auto it = std::remove(songs.begin(), songs.end(), song);
+	if (it != songs.end())
+	{
+		songs.erase(it, songs.end());
+	}
 }
 
 void SongMixer::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
@@ -48,6 +58,21 @@ void SongMixer::releaseResources()
         song->releaseResources();
 }
 
+void SongMixer::startSong(std::shared_ptr<Song> song)
+{
+	if (song)
+	{
+		song->start();
+	}
+}
+
+void SongMixer::stopSong(std::shared_ptr<Song> song)
+{
+	if (song)
+	{
+		song->stop();
+	}
+}
 
 void SongMixer::startAll()
 {
@@ -63,4 +88,17 @@ void SongMixer::stopAll()
     {
         song->stop();
     }
+}
+
+
+void SongMixer::setStemMute(juce::String songId, StemType stemType, bool mute)
+{
+	for (auto& song : songs)
+	{
+		if (song->getName() == songId)
+		{
+			song->setStemMute(stemType, mute);
+			break;
+		}
+	}
 }

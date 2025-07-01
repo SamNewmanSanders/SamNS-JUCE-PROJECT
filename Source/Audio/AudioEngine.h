@@ -13,9 +13,15 @@ public:
     void shutdown();    // Shutdown device and cleanup
 
     void addSong(std::shared_ptr<Song> song);
+    void removeSong(std::shared_ptr<Song> song);  
+
+    void startSong(std::shared_ptr<Song> song);   
+    void stopSong(std::shared_ptr<Song> song);   
 
     void startAll();
     void stopAll();
+
+    void setStemMute(juce::String songId, StemType stemType, bool mute);
 
 
     // Get functions

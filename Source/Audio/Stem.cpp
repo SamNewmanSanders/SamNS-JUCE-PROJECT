@@ -1,6 +1,6 @@
 #include "Stem.h"
 
-Stem::Stem(const juce::File& audioFile, const juce::String& stemType)
+Stem::Stem(const juce::File& audioFile, StemType stemType)
     : stemType(stemType)
 {
     formatManager.registerBasicFormats();
@@ -41,3 +41,4 @@ void Stem::releaseResources()
 {
     transportSource.releaseResources();
 }
+

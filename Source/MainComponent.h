@@ -2,6 +2,7 @@
 
 #include <JuceHeader.h>
 #include "Audio/AudioEngine.h"
+#include "Controllers/SessionManager.h"
 #include "UI/MainUI.h"
 
 class MainComponent : public juce::Component
@@ -14,10 +15,9 @@ public:
     void resized() override;
 
 private:
-
-    std::unique_ptr<MainController> mainController;
+    AudioEngine audioEngine;
+    std::unique_ptr<SessionManager> sessionManager;
     std::unique_ptr<MainUI> mainUI;
-	AudioEngine audioEngine;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainComponent)
 };

@@ -13,4 +13,5 @@ public:
 
 private:
     juce::ComboBox songDropdown;
+    bool suppressFirstChange = true;
 };

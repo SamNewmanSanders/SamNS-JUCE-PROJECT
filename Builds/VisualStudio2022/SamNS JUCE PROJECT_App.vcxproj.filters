@@ -2,6 +2,9 @@
 
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Filter Include="SamNS JUCE PROJECT\Source\Helpers">
+      <UniqueIdentifier>{F7385F83-D24D-F65B-A36A-42BD502DF31A}</UniqueIdentifier>
+    </Filter>
     <Filter Include="SamNS JUCE PROJECT\Source\Controllers">
       <UniqueIdentifier>{E2472228-3AB0-1DE9-1923-E5EA42334223}</UniqueIdentifier>
     </Filter>
@@ -700,7 +703,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\Controllers\MainController.cpp">
+    <ClCompile Include="..\..\Source\Controllers\SessionManager.cpp">
       <Filter>SamNS JUCE PROJECT\Source\Controllers</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\UI\MainUI.cpp">
@@ -3609,7 +3612,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\Controllers\MainController.h">
+    <ClInclude Include="..\..\Source\Helpers\StemType.h">
+      <Filter>SamNS JUCE PROJECT\Source\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Controllers\SessionManager.h">
       <Filter>SamNS JUCE PROJECT\Source\Controllers</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\UI\MainUI.h">

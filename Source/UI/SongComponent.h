@@ -1,25 +1,31 @@
 #pragma once
-
 #include <JuceHeader.h>
-#include "../Audio/Song.h"
+#include "../Controllers/SessionManager.h"
+#include "StemComponent.h"  
 
 class SongComponent : public juce::Component
 {
 public:
-    explicit SongComponent(std::shared_ptr<Song> s);
-    ~SongComponent() override = default;
+    SongComponent(SessionManager& manager, juce::String songId);
 
     void resized() override;
 
 private:
-    std::shared_ptr<Song> song;
+    void handleStart();
+    void handleStop();
+
+    SessionManager& sessionManager;
+    juce::String songId;
 
     juce::Label titleLabel;
     juce::TextButton startButton{ "Start" };
     juce::TextButton stopButton{ "Stop" };
 
-    void handleStart();
-    void handleStop();
+
+    std::unique_ptr<StemComponent> drumsStem;
+    std::unique_ptr<StemComponent> vocalsStem;
+    std::unique_ptr<StemComponent> bassStem;
+    std::unique_ptr<StemComponent> otherStem;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SongComponent)
 };

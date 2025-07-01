@@ -1,26 +1,24 @@
 #pragma once
-
 #include <JuceHeader.h>
-#include "../Controllers/MainController.h"
+#include "../Controllers/SessionManager.h"
 #include "SongBrowserComponent.h"
 #include "SongComponent.h"
 
 class MainUI : public juce::Component
 {
 public:
-    explicit MainUI(MainController& controller);
-    ~MainUI() override = default;
+    explicit MainUI(SessionManager& sessionManager);
 
     void resized() override;
 
 private:
+    void handleSongSelected(const juce::String& name);
+
+    SessionManager& sessionManager;
     SongBrowserComponent songBrowser;
-    MainController& mainController;
 
-    std::array<std::unique_ptr<SongComponent>, 4> songComponents;
+    std::vector<std::unique_ptr<SongComponent>> songComponents;
     int songSlotCounter = 0;
-
-    void handleSongSelected(const juce::String& songName);
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainUI)
 };

@@ -2,6 +2,7 @@
 
 #include <JuceHeader.h>
 #include "StemMixer.h"
+#include "../Helpers/StemType.h"
 
 class Song : public juce::AudioSource
 {
@@ -16,11 +17,12 @@ public:
     void start();
     void stop();
 
+    void setStemMute(StemType stemType, bool mute);
 	juce::String getName() const { return songName; }
 
 private:
     bool loadFromFolder(const juce::File& folder);
-    void addStem(const juce::File& file, const juce::String& stemType);
+    void addStem(const juce::File& file, StemType stemType);
 
     StemMixer stemMixer;
 

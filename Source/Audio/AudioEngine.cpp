@@ -1,4 +1,6 @@
 #include "AudioEngine.h"
+#include "../Helpers/StemType.h"
+
 
 AudioEngine::AudioEngine()
 {
@@ -56,18 +58,41 @@ void AudioEngine::addSong(std::shared_ptr<Song> song)
     songMixer.addSong(std::move(song));
     DBG("AudioEngine added song to mixer");
 
-    // 3) Start playback
-    //start();
+}
+
+void AudioEngine::removeSong(std::shared_ptr<Song> song)
+{
+	const juce::ScopedLock sl(deviceManager.getAudioCallbackLock());
+	songMixer.stopSong(song); // Stop the song before removing it
+	songMixer.removeSong(song);
+}
+
+void AudioEngine::startSong(std::shared_ptr<Song> song)
+{
+	const juce::ScopedLock sl(deviceManager.getAudioCallbackLock()); 
+	songMixer.startSong(song);
+}
+
+void AudioEngine::stopSong(std::shared_ptr<Song> song)
+{
+	const juce::ScopedLock sl(deviceManager.getAudioCallbackLock());     
+	songMixer.stopSong(song);
 }
 
 void AudioEngine::startAll()
 {
-    const juce::ScopedLock sl(deviceManager.getAudioCallbackLock()); // Corrected method name  
+    const juce::ScopedLock sl(deviceManager.getAudioCallbackLock()); 
     songMixer.startAll();
 }
 
 void AudioEngine::stopAll()
 {
-    const juce::ScopedLock sl(deviceManager.getAudioCallbackLock()); // Corrected method name  
+    const juce::ScopedLock sl(deviceManager.getAudioCallbackLock()); 
     songMixer.stopAll();
+}
+
+void AudioEngine::setStemMute(juce::String songId, StemType stemType, bool mute)
+{
+	const juce::ScopedLock sl(deviceManager.getAudioCallbackLock());  
+	songMixer.setStemMute(songId, stemType, mute);
 }

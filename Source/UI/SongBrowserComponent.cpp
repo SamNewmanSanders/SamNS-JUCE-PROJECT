@@ -4,13 +4,19 @@ SongBrowserComponent::SongBrowserComponent()
 {
     addAndMakeVisible(songDropdown);
 
-	// Set up the callback - called when dropdown selection changes
+    // Set up the callback - called when dropdown selection changes
     songDropdown.onChange = [this]() {
-        if (onSongSelected)
-            onSongSelected(songDropdown.getText());
-        };
-}
+        if (suppressFirstChange) {
+            suppressFirstChange = false;
+            return;  // Skip first automatic change
+        }
 
+        if (onSongSelected) {
+            DBG("Song selected: " + songDropdown.getText());
+            onSongSelected(songDropdown.getText());
+        }
+    };
+}
 void SongBrowserComponent::resized()
 {
     songDropdown.setBounds(getLocalBounds().reduced(10));

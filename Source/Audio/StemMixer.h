@@ -1,6 +1,8 @@
 #pragma once
 #include <JuceHeader.h>
 #include "Stem.h"
+#include "../Helpers/StemType.h"
+
 
 class StemMixer : public juce::AudioSource
 {
@@ -18,6 +20,9 @@ public:
 
     void startAll();
     void stopAll();
+
+    void setStemMute(StemType stemType, bool mute);
+
 
 private:
     std::vector<std::shared_ptr<Stem>> Stems;

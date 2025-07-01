@@ -2,39 +2,40 @@
 
 MainComponent::MainComponent()
 {
-    // Initialize AudioEngine (register formats, open device, etc)
+    // 1. Start the audio engine
     audioEngine.initialise();
-    //audioEngine.startAll();
 
+    // 2. Create SessionManager with root folder of songs
+    sessionManager = std::make_unique<SessionManager>(
+        audioEngine,
+        juce::File("C:/Personal Computing Stuff/Python/Song splitter/DJ SONGS + STEMS")
+    );
 
-    mainController = std::make_unique<MainController>(juce::File("C:/Personal Computing Stuff/Python/Song splitter/DJ SONGS + STEMS"), audioEngine);
-
-    mainUI = std::make_unique<MainUI>(*mainController);
-
+    // 3. Connect UI to session manager
+    mainUI = std::make_unique<MainUI>(*sessionManager);
     addAndMakeVisible(*mainUI);
 
+    // 4. UI size
     setSize(1500, 800);
 
-	DBG("MainComponent initialized with AudioEngine, MainController and UI");
-
+    DBG("MainComponent initialized with AudioEngine, SessionManager, and MainUI");
 }
 
 MainComponent::~MainComponent()
 {
-    // Make sure to shutdown audio on destruction
+    // Shutdown on destruction
     audioEngine.stopAll();
     audioEngine.shutdown();
 }
 
 void MainComponent::paint(juce::Graphics& g)
 {
-    /*g.fillAll(juce::Colours::darkgrey);
-    g.setColour(juce::Colours::white);
-    g.setFont(20.0f);
-    g.drawText("AudioEngine Playback Running...", getLocalBounds(), juce::Justification::centred, true);*/
+    // Optional UI background (uncomment if needed)
+    // g.fillAll(juce::Colours::darkgrey);
 }
 
 void MainComponent::resized()
 {
-    mainUI->setBounds(getLocalBounds());
+    if (mainUI)
+        mainUI->setBounds(getLocalBounds());
 }

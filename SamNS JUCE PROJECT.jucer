@@ -4,11 +4,14 @@
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
   <MAINGROUP id="T7jAan" name="SamNS JUCE PROJECT">
     <GROUP id="{72816E61-48FC-5D00-58BE-C433B76E56BF}" name="Source">
+      <GROUP id="{B107F683-ED0B-21AC-28C4-D81B4AF9812E}" name="Helpers">
+        <FILE id="ohRvZu" name="StemType.h" compile="0" resource="0" file="Source/Helpers/StemType.h"/>
+      </GROUP>
       <GROUP id="{635BFE02-C665-A963-0193-414E5DDF1053}" name="Controllers">
-        <FILE id="zOaycd" name="MainController.cpp" compile="1" resource="0"
-              file="Source/Controllers/MainController.cpp"/>
-        <FILE id="Wh9SFI" name="MainController.h" compile="0" resource="0"
-              file="Source/Controllers/MainController.h"/>
+        <FILE id="zOaycd" name="SessionManager.cpp" compile="1" resource="0"
+              file="Source/Controllers/SessionManager.cpp"/>
+        <FILE id="Wh9SFI" name="SessionManager.h" compile="0" resource="0"
+              file="Source/Controllers/SessionManager.h"/>
       </GROUP>
       <GROUP id="{13FC8707-F1AC-460B-E85C-88ADB93CA258}" name="UI">
         <FILE id="cyBnn5" name="MainUI.cpp" compile="1" resource="0" file="Source/UI/MainUI.cpp"/>

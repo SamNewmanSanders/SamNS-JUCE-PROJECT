@@ -20,15 +20,21 @@ bool Song::loadFromFolder(const juce::File& folder)
     if (!folder.isDirectory())
         return false;
 
-    static const juce::StringArray stemTypes = { "drums", "vocals", "bass", "other" };
+    // Map stem file names to their corresponding StemType
+    static const std::map<juce::String, StemType> stemMap = {
+        { "drums", StemType::Drums },
+        { "vocals", StemType::Vocals },
+        { "bass", StemType::Bass },
+        { "other", StemType::Other }
+    };
 
-    for (const auto& stem : stemTypes)
+    for (const auto& [stemName, stemType] : stemMap)
     {
-        juce::File stemFile = folder.getChildFile(stem + ".mp3");
+        juce::File stemFile = folder.getChildFile(stemName + ".mp3");
 
         if (stemFile.existsAsFile())
         {
-            addStem(stemFile, stem);
+            addStem(stemFile, stemType);
         }
         else
         {
@@ -39,7 +45,7 @@ bool Song::loadFromFolder(const juce::File& folder)
     return true;
 }
 
-void Song::addStem(const juce::File& file, const juce::String& stemType)
+void Song::addStem(const juce::File& file, StemType stemType)
 {
     auto stem = std::make_unique<Stem>(file, stemType);
     stemMixer.addStem(std::move(stem));
@@ -68,4 +74,9 @@ void Song::start()
 void Song::stop()
 {
     stemMixer.stopAll();
+}
+
+void Song::setStemMute(StemType stemType, bool mute)
+{
+	stemMixer.setStemMute(stemType, mute);
 }
