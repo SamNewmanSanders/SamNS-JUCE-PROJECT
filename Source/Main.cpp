@@ -3,7 +3,7 @@
 #include <JuceHeader.h>
 #include "MainComponent.h"
 
-class ProofApp : public juce::JUCEApplication
+class SamNSApp : public juce::JUCEApplication
 {
 public:
     const juce::String getApplicationName() override { return "AudioEngine POC"; }
@@ -31,7 +31,7 @@ public:
             setUsingNativeTitleBar(true);
             setContentOwned(c, true);
             setResizable(true, true);
-            centreWithSize(400, 200);
+            centreWithSize(1500, 700);
             setVisible(true);
         }
 
@@ -48,4 +48,4 @@ private:
     std::unique_ptr<MainWindow> mainWindow;
 };
 
-START_JUCE_APPLICATION(ProofApp)
+START_JUCE_APPLICATION(SamNSApp)

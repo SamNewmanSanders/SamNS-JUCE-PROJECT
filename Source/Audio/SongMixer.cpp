@@ -102,3 +102,15 @@ void SongMixer::setStemMute(juce::String songId, StemType stemType, bool mute)
 		}
 	}
 }
+
+void SongMixer::setStemVolume(juce::String songId, StemType stemType, float newVolume)
+{
+	for (auto& song : songs)
+	{
+		if (song->getName() == songId)
+		{
+			song->setStemVolume(stemType, newVolume);
+			break;
+		}
+	}
+}

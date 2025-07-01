@@ -80,3 +80,8 @@ void Song::setStemMute(StemType stemType, bool mute)
 {
 	stemMixer.setStemMute(stemType, mute);
 }
+
+void Song::setStemVolume(StemType stemType, float newVolume)
+{
+	stemMixer.setStemVolume(stemType, newVolume);
+}

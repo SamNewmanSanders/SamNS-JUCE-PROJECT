@@ -23,6 +23,14 @@ void AudioEngine::initialise()
     // Connect the AudioSourcePlayer to the device
     deviceManager.addAudioCallback(&sourcePlayer);
 
+    auto* deviceType = deviceManager.getCurrentDeviceTypeObject();
+    if (deviceType != nullptr)
+    {
+        auto names = deviceType->getDeviceNames();
+        for (const auto& name : names)
+            DBG("Available device: " + name);
+    }
+
     // Prepare songMixer with default buffer size and sample rate
     auto* currentDevice = deviceManager.getCurrentAudioDevice();
     if (currentDevice != nullptr)
@@ -95,4 +103,10 @@ void AudioEngine::setStemMute(juce::String songId, StemType stemType, bool mute)
 {
 	const juce::ScopedLock sl(deviceManager.getAudioCallbackLock());  
 	songMixer.setStemMute(songId, stemType, mute);
+}
+
+void AudioEngine::setStemVolume(juce::String songId, StemType stemType, float newVolume)
+{
+	const juce::ScopedLock sl(deviceManager.getAudioCallbackLock());
+	songMixer.setStemVolume(songId, stemType, newVolume);
 }

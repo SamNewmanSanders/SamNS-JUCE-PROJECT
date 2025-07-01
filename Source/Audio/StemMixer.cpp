@@ -26,19 +26,26 @@ void StemMixer::getNextAudioBlock(const juce::AudioSourceChannelInfo& bufferToFi
     bufferToFill.clearActiveBufferRegion();
 
     juce::AudioBuffer<float> mixBuffer(bufferToFill.buffer->getNumChannels(), bufferToFill.numSamples);
+    mixBuffer.clear();
+
     juce::AudioSourceChannelInfo mixInfo(&mixBuffer, 0, bufferToFill.numSamples);
 
     for (auto& stem : Stems)
     {
-        if (stem->isMuted())
-            continue; // skip muted stem
 
-        mixBuffer.clear();
+        // Let the stem write its output into mixBuffer directly (overwrite each time)
         stem->getNextAudioBlock(mixInfo);
 
+        float vol = stem->isMuted() ? 0.0f : stem->getVolume();
+
         for (int channel = 0; channel < bufferToFill.buffer->getNumChannels(); ++channel)
+        {
             bufferToFill.buffer->addFrom(channel, bufferToFill.startSample,
-                mixBuffer, channel, 0, bufferToFill.numSamples);
+                mixBuffer, channel, 0,
+                bufferToFill.numSamples, vol);
+        }
+
+        mixBuffer.clear(); // Clear after using for this stem, ready for next one
     }
 }
 
@@ -75,4 +82,16 @@ void StemMixer::setStemMute(StemType stemType, bool mute)
             stem->setMuted(mute); // use new Stem method
         }
     }
+}
+
+void StemMixer::setStemVolume(StemType stemType, float newVolume)
+{
+	for (auto& stem : Stems)
+	{
+		if (stem->getStemType() == stemType)
+		{
+			// Assuming Stem has a method to set volume
+			stem->setVolume(newVolume); // Implement this method in Stem class
+		}
+	}
 }

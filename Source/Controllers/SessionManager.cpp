@@ -71,6 +71,15 @@ void SessionManager::setStemMute(const juce::String& songId, StemType stemType, 
     audioEngine.setStemMute(songId, stemType, mute);
 }
 
+void SessionManager::setStemVolume(const juce::String& songId, StemType stemType, float newVolume)
+{
+    auto it = loadedSongsById.find(songId);
+    if (it == loadedSongsById.end())
+        return;
+
+    audioEngine.setStemVolume(songId, stemType, newVolume);
+}
+
 juce::String SessionManager::getSongName(const juce::String& songId) const
 {
     auto it = loadedSongsById.find(songId);

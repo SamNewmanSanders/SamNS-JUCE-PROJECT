@@ -16,7 +16,7 @@ MainComponent::MainComponent()
     addAndMakeVisible(*mainUI);
 
     // 4. UI size
-    setSize(1500, 800);
+    setSize(1500, 700);
 
     DBG("MainComponent initialized with AudioEngine, SessionManager, and MainUI");
 }

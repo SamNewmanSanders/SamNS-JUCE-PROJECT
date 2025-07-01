@@ -22,6 +22,7 @@ public:
     void stopAll();
 
     void setStemMute(StemType stemType, bool mute);
+	void setStemVolume(StemType stemType, float newVolume);
 
 
 private:

@@ -18,6 +18,9 @@ public:
     void stop();
 
     void setStemMute(StemType stemType, bool mute);
+	void setStemVolume(StemType stemType, float newVolume);
+
+
 	juce::String getName() const { return songName; }
 
 private:

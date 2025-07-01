@@ -22,6 +22,7 @@ public:
     void stopSong(const juce::String& songId);
 
     void setStemMute(const juce::String& songId, StemType stemType, bool mute);
+    void setStemVolume(const juce::String& songId, StemType stemType, float newVolume);
 
     juce::String getSongName(const juce::String& songId) const;
     std::vector<juce::String> getAvailableSongNames() const;

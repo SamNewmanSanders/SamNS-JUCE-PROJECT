@@ -9,6 +9,7 @@ class MainUI : public juce::Component
 public:
     explicit MainUI(SessionManager& sessionManager);
 
+    void paint(juce::Graphics& g) override;
     void resized() override;
 
 private:

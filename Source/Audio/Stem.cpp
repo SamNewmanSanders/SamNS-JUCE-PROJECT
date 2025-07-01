@@ -11,8 +11,8 @@ Stem::Stem(const juce::File& audioFile, StemType stemType)
         {
             readerSource.reset(new juce::AudioFormatReaderSource(reader, true));
             transportSource.setSource(readerSource.get(),
-                0,      // no read ahead buffer (default)
-                nullptr, // no thread pool for background reading
+                0,      // no read ahead buffer
+                nullptr,
                 reader->sampleRate);
         }
     }
@@ -30,15 +30,12 @@ void Stem::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
 }
 
 void Stem::getNextAudioBlock(const juce::AudioSourceChannelInfo& bufferToFill)
-{
-    if (transportSource.isPlaying())
-        transportSource.getNextAudioBlock(bufferToFill);
-    else
-        bufferToFill.clearActiveBufferRegion();  // silence when stopped
+{    
+    transportSource.getNextAudioBlock(bufferToFill);
+
 }
 
 void Stem::releaseResources()
 {
     transportSource.releaseResources();
 }
-

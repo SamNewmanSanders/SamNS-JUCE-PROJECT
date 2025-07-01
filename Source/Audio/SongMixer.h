@@ -22,6 +22,7 @@ public:
     void stopAll();
 
 	void setStemMute(juce::String songId, StemType stemType, bool mute);
+	void setStemVolume(juce::String songId, StemType stemType, float newVolume);
 
 private:
     std::vector<std::shared_ptr<Song>> songs;

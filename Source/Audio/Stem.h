@@ -16,14 +16,18 @@ public:
     void start() { transportSource.start(); }
     void stop() { transportSource.stop(); }
 
-    void setMuted(bool shouldMute) { muted = shouldMute;  }
+    void setMuted(bool shouldMute) { muted = shouldMute; }
     bool isMuted() const { return muted; }
 
-    StemType getStemType() const { return stemType; } // getter for stem type
+    void setVolume(float newVolume) { volume = newVolume; }
+    float getVolume() const { return volume; }
+
+    StemType getStemType() const { return stemType; }
 
 private:
-    StemType stemType;  // Store the stem type ("vocals", "drums", etc.)
+    StemType stemType;
     bool muted = false;
+    float volume = 1.0f;  // default full volume
 
     juce::AudioFormatManager formatManager;
     std::unique_ptr<juce::AudioFormatReaderSource> readerSource;
