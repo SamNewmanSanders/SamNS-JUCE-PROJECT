@@ -6,14 +6,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SamNS JUCE PROJECT - App", 
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|x64 = Debug|x64
 		Release|x64 = Release|x64
+		Debug|x64 = Debug|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CFD6C1BA-C836-F8F7-A5A8-567A28AB0A79}.Debug|x64.ActiveCfg = Debug|x64
-		{CFD6C1BA-C836-F8F7-A5A8-567A28AB0A79}.Debug|x64.Build.0 = Debug|x64
 		{CFD6C1BA-C836-F8F7-A5A8-567A28AB0A79}.Release|x64.ActiveCfg = Release|x64
 		{CFD6C1BA-C836-F8F7-A5A8-567A28AB0A79}.Release|x64.Build.0 = Release|x64
+		{CFD6C1BA-C836-F8F7-A5A8-567A28AB0A79}.Debug|x64.ActiveCfg = Debug|x64
+		{CFD6C1BA-C836-F8F7-A5A8-567A28AB0A79}.Debug|x64.Build.0 = Debug|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

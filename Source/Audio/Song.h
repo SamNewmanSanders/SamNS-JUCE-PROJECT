@@ -3,9 +3,7 @@
 #include <JuceHeader.h>
 #include "StemMixer.h"
 #include "../Helpers/StemType.h"
-
-#include "../SoundTorch/SoundTouch.h"
-
+#include <rubberband/RubberBandStretcher.h>
 
 class Song : public juce::AudioSource
 {
@@ -21,25 +19,23 @@ public:
     void stop();
 
     void setStemMute(StemType stemType, bool mute);
-	void setStemVolume(StemType stemType, float newVolume);
+    void setStemVolume(StemType stemType, float newVolume);
 
-
-	juce::String getName() const { return songName; }
-
-    void setTempoRatio(float newRatio); // for stretching
+    juce::String getName() const { return songName; }
+    void setTempoRatio(float newRatio);
 
 private:
-
     bool loadFromFolder(const juce::File& folder);
     void addStem(const juce::File& file, StemType stemType);
 
     StemMixer stemMixer;
+    juce::String songName;
 
-	juce::String songName;
+    std::unique_ptr<RubberBand::RubberBandStretcher> stretcher;
+    float currentTempoRatio = 0.98f;
+    double currentSampleRate = 44100.0;
 
-    soundtouch::SoundTouch soundTouch;
-    juce::AudioBuffer<float> tempBuffer;  // buffer to hold mixed stems for processing
-    float currentTempoRatio = 1.1f;
+    juce::AudioBuffer<float> tempBuffer;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Song)
 };

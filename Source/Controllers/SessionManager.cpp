@@ -7,7 +7,7 @@ SessionManager::SessionManager(AudioEngine& engine, const juce::File& root)
 
 SessionManager::~SessionManager()
 {
-	audioEngine.shutdown();
+    audioEngine.shutdown();
 }
 
 juce::String SessionManager::loadSong(const juce::String& folderName)
@@ -88,7 +88,7 @@ juce::String SessionManager::getSongName(const juce::String& songId) const
 
     return it->second->getName();
 #
-	//This function is redundant as the ID is the same as the name but will keep for now
+    //This function is redundant as the ID is the same as the name but will keep for now
 }
 
 int SessionManager::getNumSongs() const

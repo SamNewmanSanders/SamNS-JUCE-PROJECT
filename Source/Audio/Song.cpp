@@ -1,15 +1,8 @@
 #include "Song.h"
 
 Song::Song(const juce::File& folder, juce::String songName)
-	:songName(songName)
+    : songName(songName)
 {
-
-    // Setup SoundTouch params (sample rate and channels will be updated in prepareToPlay)
-    soundTouch.setChannels(2);  // Assuming stereo
-    soundTouch.setSampleRate(44100); // default; update later
-    soundTouch.setTempo(currentTempoRatio);
-
-	// Call the loadFromFolder method to load stems
     if (!loadFromFolder(folder))
     {
         DBG("Failed to load stems from folder: " << folder.getFullPathName());
@@ -26,7 +19,6 @@ bool Song::loadFromFolder(const juce::File& folder)
     if (!folder.isDirectory())
         return false;
 
-    // Map stem file names to their corresponding StemType
     static const std::map<juce::String, StemType> stemMap = {
         { "drums", StemType::Drums },
         { "vocals", StemType::Vocals },
@@ -60,62 +52,92 @@ void Song::addStem(const juce::File& file, StemType stemType)
 void Song::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
 {
     stemMixer.prepareToPlay(samplesPerBlockExpected, sampleRate);
+    currentSampleRate = sampleRate;
 
-    // Update SoundTouch sample rate
-    soundTouch.setSampleRate(static_cast<uint>(sampleRate));
-    soundTouch.setChannels(2); // stereo
-    soundTouch.setTempo(currentTempoRatio);
+    // Create a new RubberBandStretcher with higher-quality real-time options
+    auto options =
+        RubberBand::RubberBandStretcher::OptionProcessRealTime |
+        RubberBand::RubberBandStretcher::OptionWindowLong |
+        RubberBand::RubberBandStretcher::OptionFormantPreserved |
+        RubberBand::RubberBandStretcher::OptionPhaseLaminar |
+        RubberBand::RubberBandStretcher::OptionPitchHighQuality |
+        RubberBand::RubberBandStretcher::OptionThreadingAuto;
 
-    tempBuffer.setSize(2, samplesPerBlockExpected); // stereo buffer for stems mixed output
+    stretcher = std::make_unique<RubberBand::RubberBandStretcher>(
+        sampleRate,
+        2, // stereo
+        options
+    );
+
+    stretcher->setTimeRatio(currentTempoRatio);
+
+    tempBuffer.setSize(2, samplesPerBlockExpected); // stereo buffer
 }
 
 void Song::getNextAudioBlock(const juce::AudioSourceChannelInfo& bufferToFill)
 {
-    // Step 4a: Mix all stems into tempBuffer
+    bufferToFill.clearActiveBufferRegion();
+
+    // Step 1: Mix all stems into tempBuffer
     juce::AudioSourceChannelInfo tempInfo(&tempBuffer, 0, bufferToFill.numSamples);
     tempBuffer.clear();
     stemMixer.getNextAudioBlock(tempInfo);
 
-    // Step 4b: Feed mixed data to SoundTouch
-    // SoundTouch expects interleaved samples, so we need to interleave the buffer
     const int numSamples = tempBuffer.getNumSamples();
     const int numChannels = tempBuffer.getNumChannels();
 
-    // Prepare interleaved buffer
-    std::vector<float> interleavedBuffer(numSamples * numChannels);
+    if (numSamples == 0 || !stretcher)
+        return;
 
-    for (int sample = 0; sample < numSamples; ++sample)
+    // Step 2: Create float** for Rubber Band input
+    std::vector<std::vector<float>> channelData(numChannels, std::vector<float>(numSamples));
+    std::vector<float*> inputPtrs(numChannels);
+
+    for (int ch = 0; ch < numChannels; ++ch)
     {
-        for (int channel = 0; channel < numChannels; ++channel)
-        {
-            interleavedBuffer[sample * numChannels + channel] = tempBuffer.getSample(channel, sample);
-        }
+        std::memcpy(channelData[ch].data(),
+            tempBuffer.getReadPointer(ch),
+            sizeof(float) * numSamples);
+        inputPtrs[ch] = channelData[ch].data();
     }
 
-    // Feed samples into SoundTouch
-    soundTouch.putSamples(interleavedBuffer.data(), numSamples);
+    // Step 3: Feed to Rubber Band
+    stretcher->process(inputPtrs.data(), numSamples, false);
 
-    // Receive processed samples
-    const int maxOutputSamples = bufferToFill.numSamples;
-    std::vector<float> processedInterleaved(maxOutputSamples * numChannels);
-    int receivedSamples = soundTouch.receiveSamples(processedInterleaved.data(), maxOutputSamples);
+    // Step 4: Retrieve processed samples
+    const int available = stretcher->available();
+    if (available <= 0)
+        return;
 
-    // Copy processed data to bufferToFill
-    bufferToFill.buffer->clear(bufferToFill.startSample, bufferToFill.numSamples);
+    const int maxSamples = std::min(bufferToFill.numSamples, available);
 
-    for (int sample = 0; sample < receivedSamples; ++sample)
+    juce::AudioBuffer<float>& outBuffer = *bufferToFill.buffer;
+
+    // Step 5: Prepare output channel pointers
+    std::vector<float*> outputPtrs(numChannels);
+    for (int ch = 0; ch < numChannels; ++ch)
+        outputPtrs[ch] = outBuffer.getWritePointer(ch, bufferToFill.startSample);
+
+    // Step 6: Retrieve into output buffer
+    const size_t samplesRetrieved = stretcher->retrieve(outputPtrs.data(), maxSamples);
+
+    // Step 7 (optional): clear rest if retrieved fewer than expected
+    if (samplesRetrieved < static_cast<size_t>(bufferToFill.numSamples))
     {
-        for (int channel = 0; channel < numChannels; ++channel)
+        for (int ch = 0; ch < numChannels; ++ch)
         {
-            float val = processedInterleaved[sample * numChannels + channel];
-            bufferToFill.buffer->addSample(channel, bufferToFill.startSample + sample, val);
+            outBuffer.clear(ch,
+                bufferToFill.startSample + static_cast<int>(samplesRetrieved),
+                bufferToFill.numSamples - static_cast<int>(samplesRetrieved));
         }
     }
 }
 
+
 void Song::releaseResources()
 {
     stemMixer.releaseResources();
+    stretcher.reset();
 }
 
 void Song::start()
@@ -130,16 +152,17 @@ void Song::stop()
 
 void Song::setStemMute(StemType stemType, bool mute)
 {
-	stemMixer.setStemMute(stemType, mute);
+    stemMixer.setStemMute(stemType, mute);
 }
 
 void Song::setStemVolume(StemType stemType, float newVolume)
 {
-	stemMixer.setStemVolume(stemType, newVolume);
+    stemMixer.setStemVolume(stemType, newVolume);
 }
 
 void Song::setTempoRatio(float newRatio)
 {
     currentTempoRatio = newRatio;
-    soundTouch.setTempo(currentTempoRatio);
+    if (stretcher)
+        stretcher->setTimeRatio(currentTempoRatio);
 }
