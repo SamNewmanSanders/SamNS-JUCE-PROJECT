@@ -22,8 +22,9 @@ public:
     void stopAll();
 
     void setStemMute(juce::String songId, StemType stemType, bool mute);
-	void setStemVolume(juce::String songId, StemType stemType, float newVolume);
+    void setStemVolume(juce::String songId, StemType stemType, float newVolume);
 
+    void setDeviceBufferSize (int newBufferSize, double newSampleRate);
 
     // Get functions
     SongMixer& getSongMixer() { return songMixer; }

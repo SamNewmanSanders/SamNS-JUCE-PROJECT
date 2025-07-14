@@ -25,6 +25,8 @@ public:
 	void setStemVolume(StemType stemType, float newVolume);
 
 
+    std::vector<std::shared_ptr<Stem>> stems;
+    
 private:
-    std::vector<std::shared_ptr<Stem>> Stems;
+    
 };

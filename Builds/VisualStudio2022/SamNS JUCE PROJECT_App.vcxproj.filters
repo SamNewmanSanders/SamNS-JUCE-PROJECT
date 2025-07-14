@@ -14,6 +14,9 @@
     <Filter Include="SamNS JUCE PROJECT\Source\SoundTorch">
       <UniqueIdentifier>{03AF18C5-DC1E-C658-56AA-ED9E2FB14C73}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SamNS JUCE PROJECT\Source\Audio\Stretching">
+      <UniqueIdentifier>{D9F8AF46-781C-C635-3963-1103F93CDB18}</UniqueIdentifier>
+    </Filter>
     <Filter Include="SamNS JUCE PROJECT\Source\Audio">
       <UniqueIdentifier>{D07B40BF-76FD-D0E6-5E37-36A3FE0620FD}</UniqueIdentifier>
     </Filter>
@@ -777,6 +780,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\SoundTorch\TDStretch.cpp">
       <Filter>SamNS JUCE PROJECT\Source\SoundTorch</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Audio\Stretching\StretchJob.cpp">
+      <Filter>SamNS JUCE PROJECT\Source\Audio\Stretching</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Audio\AudioEngine.cpp">
       <Filter>SamNS JUCE PROJECT\Source\Audio</Filter>
@@ -3806,6 +3812,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\SoundTorch\TDStretch.h">
       <Filter>SamNS JUCE PROJECT\Source\SoundTorch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Audio\Stretching\StretchJob.h">
+      <Filter>SamNS JUCE PROJECT\Source\Audio\Stretching</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Audio\AudioEngine.h">
       <Filter>SamNS JUCE PROJECT\Source\Audio</Filter>

@@ -67,9 +67,9 @@ void Stem::releaseResources()
 void Stem::preStretch(double tempoRatio)
 {
     auto* reader = readerSource->getAudioFormatReader();
-    int channels       = (int)reader->numChannels;
-    int totalSamples   = (int)reader->lengthInSamples;
-    double sr          = reader->sampleRate;
+    int channels = (int)reader->numChannels;
+    int totalSamples = (int)reader->lengthInSamples;
+    double sr = reader->sampleRate;
 
     // Read entire stem into buffer
     juce::AudioBuffer<float> input(channels, totalSamples);
@@ -78,10 +78,10 @@ void Stem::preStretch(double tempoRatio)
     // Build the stretcher with formant preservation and high-quality pitch
     using Opt = RubberBand::RubberBandStretcher;
     int options = Opt::OptionProcessOffline
-                | Opt::OptionEngineFiner
-                | Opt::OptionWindowLong
-                | Opt::OptionFormantPreserved
-                | Opt::OptionPitchHighQuality;
+        | Opt::OptionEngineFaster
+        | Opt::OptionWindowLong
+        | Opt::OptionFormantPreserved
+        | Opt::OptionPitchHighQuality;
 
     RubberBand::RubberBandStretcher stretcher(sr, channels, options);
 

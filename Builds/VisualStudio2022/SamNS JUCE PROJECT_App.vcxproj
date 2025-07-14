@@ -170,6 +170,7 @@
     <ClCompile Include="..\..\Source\SoundTorch\SoundTouch.cpp"/>
     <ClCompile Include="..\..\Source\SoundTorch\sse_optimized.cpp"/>
     <ClCompile Include="..\..\Source\SoundTorch\TDStretch.cpp"/>
+    <ClCompile Include="..\..\Source\Audio\Stretching\StretchJob.cpp"/>
     <ClCompile Include="..\..\Source\Audio\AudioEngine.cpp"/>
     <ClCompile Include="..\..\Source\Audio\Song.cpp"/>
     <ClCompile Include="..\..\Source\Audio\SongMixer.cpp"/>
@@ -2970,6 +2971,7 @@
     <ClInclude Include="..\..\Source\SoundTorch\soundtouch_config.h"/>
     <ClInclude Include="..\..\Source\SoundTorch\STTypes.h"/>
     <ClInclude Include="..\..\Source\SoundTorch\TDStretch.h"/>
+    <ClInclude Include="..\..\Source\Audio\Stretching\StretchJob.h"/>
     <ClInclude Include="..\..\Source\Audio\AudioEngine.h"/>
     <ClInclude Include="..\..\Source\Audio\Song.h"/>
     <ClInclude Include="..\..\Source\Audio\SongMixer.h"/>

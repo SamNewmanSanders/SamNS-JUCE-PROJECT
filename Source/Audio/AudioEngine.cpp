@@ -110,3 +110,23 @@ void AudioEngine::setStemVolume(juce::String songId, StemType stemType, float ne
 	const juce::ScopedLock sl(deviceManager.getAudioCallbackLock());
 	songMixer.setStemVolume(songId, stemType, newVolume);
 }
+
+
+void AudioEngine::setDeviceBufferSize (int newBufferSize, double newSampleRate)
+{
+    // grab the current setup
+    juce::AudioDeviceManager::AudioDeviceSetup setup;
+    deviceManager.getAudioDeviceSetup (setup);
+
+    // tweak your size & rate
+    setup.bufferSize   = newBufferSize;    // e.g. 1024, 2048, etc.
+    setup.sampleRate   = newSampleRate;    // e.g. 44100.0, 48000.0
+
+    // apply immediately (true = restart device if already running)
+    deviceManager.setAudioDeviceSetup (setup, true);
+
+    // now re-prepare your mixer with the new blockSize/sampleRate
+    if (auto* dev = deviceManager.getCurrentAudioDevice())
+        songMixer.prepareToPlay (dev->getCurrentBufferSizeSamples(),
+                                 dev->getCurrentSampleRate());
+}

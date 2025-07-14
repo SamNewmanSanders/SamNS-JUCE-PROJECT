@@ -74,6 +74,10 @@
         <FILE id="lFhWHc" name="TDStretch.h" compile="0" resource="0" file="Source/SoundTorch/TDStretch.h"/>
       </GROUP>
       <GROUP id="{51370B49-A1DD-BB7F-3935-3FC7D64114AE}" name="Audio">
+        <GROUP id="{912D323A-8E4A-CB02-3D2F-9E7EC1682AD5}" name="Stretching">
+          <FILE id="K6z4WP" name="StretchJob.cpp" compile="1" resource="0" file="Source/Audio/Stretching/StretchJob.cpp"/>
+          <FILE id="aM0UR6" name="StretchJob.h" compile="0" resource="0" file="Source/Audio/Stretching/StretchJob.h"/>
+        </GROUP>
         <FILE id="JB4yBZ" name="AudioEngine.cpp" compile="1" resource="0" file="Source/Audio/AudioEngine.cpp"/>
         <FILE id="uzJzsQ" name="AudioEngine.h" compile="0" resource="0" file="Source/Audio/AudioEngine.h"/>
         <FILE id="CbRriI" name="Song.cpp" compile="1" resource="0" file="Source/Audio/Song.cpp"/>

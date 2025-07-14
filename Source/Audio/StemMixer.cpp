@@ -12,12 +12,12 @@ StemMixer::~StemMixer()
 
 void StemMixer::addStem(std::shared_ptr<Stem> Stem)
 {
-    Stems.push_back(std::move(Stem));
+    stems.push_back(std::move(Stem));
 }
 
 void StemMixer::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
 {
-    for (auto& Stem : Stems)
+    for (auto& Stem : stems)
         Stem->prepareToPlay(samplesPerBlockExpected, sampleRate);
 }
 
@@ -30,7 +30,7 @@ void StemMixer::getNextAudioBlock(const juce::AudioSourceChannelInfo& bufferToFi
 
     juce::AudioSourceChannelInfo mixInfo(&mixBuffer, 0, bufferToFill.numSamples);
 
-    for (auto& stem : Stems)
+    for (auto& stem : stems)
     {
 
         // Let the stem write its output into mixBuffer directly (overwrite each time)
@@ -52,14 +52,14 @@ void StemMixer::getNextAudioBlock(const juce::AudioSourceChannelInfo& bufferToFi
 
 void StemMixer::releaseResources()
 {
-    for (auto& Stem : Stems)
+    for (auto& Stem : stems)
         Stem->releaseResources();
 }
 
 
 void StemMixer::startAll()
 {
-    for (auto& Stem : Stems)
+    for (auto& Stem : stems)
     {
         Stem->start();
     }
@@ -67,7 +67,7 @@ void StemMixer::startAll()
 
 void StemMixer::stopAll()
 {
-    for (auto& Stem : Stems)
+    for (auto& Stem : stems)
     {
         Stem->stop();
     }
@@ -75,7 +75,7 @@ void StemMixer::stopAll()
 
 void StemMixer::setStemMute(StemType stemType, bool mute)
 {
-    for (auto& stem : Stems)
+    for (auto& stem : stems)
     {
         if (stem->getStemType() == stemType)
         {
@@ -86,7 +86,7 @@ void StemMixer::setStemMute(StemType stemType, bool mute)
 
 void StemMixer::setStemVolume(StemType stemType, float newVolume)
 {
-	for (auto& stem : Stems)
+	for (auto& stem : stems)
 	{
 		if (stem->getStemType() == stemType)
 		{

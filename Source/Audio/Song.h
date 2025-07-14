@@ -3,7 +3,7 @@
 #include <JuceHeader.h>
 #include "StemMixer.h"
 #include "../Helpers/StemType.h"
-#include <rubberband/RubberBandStretcher.h>
+#include "Stretching/StretchJob.h"
 
 class Song : public juce::AudioSource
 {
@@ -31,9 +31,9 @@ private:
     StemMixer stemMixer;
     juce::String songName;
 
-    std::unique_ptr<RubberBand::RubberBandStretcher> stretcher;
-    float currentTempoRatio = 0.98f;
+    float currentTempoRatio = 1.0f;
     double currentSampleRate = 44100.0;
+    std::unique_ptr<juce::ThreadPool> pool;
 
     juce::AudioBuffer<float> tempBuffer;
 
