@@ -24,6 +24,7 @@ public:
     void setStemMute(StemType stemType, bool mute);
 	void setStemVolume(StemType stemType, float newVolume);
 
+    void preStretchStems(double tempoRatio);
 
     std::vector<std::shared_ptr<Stem>> stems;
     

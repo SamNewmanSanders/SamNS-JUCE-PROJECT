@@ -22,7 +22,7 @@ public:
     void setStemVolume(StemType stemType, float newVolume);
 
     juce::String getName() const { return songName; }
-    void setTempoRatio(float newRatio);
+    /*void setTempoRatio(float newRatio);*/
 
 private:
     bool loadFromFolder(const juce::File& folder);

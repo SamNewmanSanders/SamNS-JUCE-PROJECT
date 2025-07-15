@@ -38,10 +38,8 @@ bool Song::loadFromFolder(const juce::File& folder)
 	DBG("Current tempo ratio: " << currentTempoRatio);
 
     // Synchronously pre-stretch each stem
-    for (auto& sPtr : stemMixer.stems) // assume stems accessible in mixer
-        sPtr->preStretch(currentTempoRatio);
-
-    return true;
+    
+    stemMixer.preStretchStems(currentTempoRatio);
 }
 
 void Song::addStem(const juce::File& file, StemType stemType)
@@ -87,7 +85,7 @@ void Song::setStemVolume(StemType stemType, float newVolume)
     stemMixer.setStemVolume(stemType, newVolume);
 }
 
-void Song::setTempoRatio(float newRatio)
-{
-    currentTempoRatio = newRatio;
-}
+//void Song::setTempoRatio(float newRatio)
+//{
+//    currentTempoRatio = newRatio;
+//}

@@ -30,29 +30,39 @@ void Stem::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
 }
 
 
-
 void Stem::getNextAudioBlock(const juce::AudioSourceChannelInfo& info)
 {
-    // Play from stretched buffer
     if (readPosition >= stretchedBuffer.getNumSamples())
     {
         info.clearActiveBufferRegion();
         return;
     }
 
-    auto* outBuffer = info.buffer;
-    for (int ch = 0; ch < outBuffer->getNumChannels(); ++ch)
+    auto* outBuffer   = info.buffer;
+    const int numCh   = outBuffer->getNumChannels();
+    const int blockSz = info.numSamples;
+    const int start   = info.startSample;
+
+    // how many valid samples remain in our stretched buffer
+    int toCopy = juce::jmin(blockSz,
+                            stretchedBuffer.getNumSamples() - readPosition);
+
+    for (int ch = 0; ch < numCh; ++ch)
     {
-        int toCopy = juce::jmin(info.numSamples,
-            stretchedBuffer.getNumSamples() - readPosition);
-        outBuffer->copyFrom(ch, info.startSample,
-            stretchedBuffer, ch, readPosition, toCopy);
-        if (toCopy < info.numSamples)
-            outBuffer->clear(ch, info.startSample + toCopy,
-                info.numSamples - toCopy);
+        outBuffer->copyFrom(ch, start,
+                            stretchedBuffer, ch,
+                            readPosition,
+                            toCopy);
+
+        // clear any “leftover” if we’re at the end
+        if (toCopy < blockSz)
+            outBuffer->clear(ch,
+                             start + toCopy,
+                             blockSz - toCopy);
     }
 
-    readPosition += info.numSamples;
+    // <-- this line was wrong before!
+    readPosition += toCopy;
 }
 
 
@@ -63,77 +73,78 @@ void Stem::releaseResources()
 }
 
 
-
 void Stem::preStretch(double tempoRatio)
 {
     auto* reader = readerSource->getAudioFormatReader();
-    int channels       = (int)reader->numChannels;
-    int totalSamples   = (int)reader->lengthInSamples;
-    double sr          = reader->sampleRate;
+    const int  channels = int(reader->numChannels);
+    const int  totalSamples = int(reader->lengthInSamples);
+    const double sr = 44100;
 
-    // Read entire stem into buffer
+    // 1) Read the whole file into 'input'
     juce::AudioBuffer<float> input(channels, totalSamples);
     reader->read(&input, 0, totalSamples, 0, true, true);
 
-    // Build the stretcher with formant preservation and high-quality pitch
-    using Opt = RubberBand::RubberBandStretcher;
-    int options = Opt::OptionProcessOffline
-                | Opt::OptionEngineFiner
-                | Opt::OptionWindowLong
-                | Opt::OptionFormantPreserved
-                | Opt::OptionPitchHighQuality;
+    // 2) Set up RubberBand with the options you want
+    using RB = RubberBand::RubberBandStretcher;
+    int opts = RB::OptionProcessOffline;
 
-    RubberBand::RubberBandStretcher stretcher(sr, channels, options);
+    // Use best rubberband settings for each stem type
 
-    // Set time ratio (inverse of tempo ratio) and neutral pitch scale
-    double timeRatio = 1.0 / tempoRatio;
-    stretcher.setTimeRatio(timeRatio);
-    stretcher.setPitchScale(1.0);
-
-    // Prepare output container; we'll size it later
-    stretchedBuffer.clear();
-    readPosition = 0;
-
-    // --- Chunked processing for offline mode ---
-    const size_t total = static_cast<size_t>(totalSamples);
-    const size_t chunkSize = 32768; // e.g., 32k samples
-    size_t pos = 0;
-
-    // Feed input in chunks
-    while (pos < total)
+    switch (stemType)
     {
-        size_t len = std::min(chunkSize, total - pos);
-        std::vector<const float*> inPtrs(channels);
-        for (int ch = 0; ch < channels; ++ch)
-            inPtrs[ch] = input.getReadPointer(ch, static_cast<int>(pos));
+    case StemType::Vocals:
+        opts |= RB::OptionWindowLong
+            | RB::OptionFormantPreserved
+            | RB::OptionPitchHighQuality;
+        break;
 
-        bool isFinal = (pos + len == total);
-        stretcher.process(inPtrs.data(), len, isFinal);
-        pos += len;
+    case StemType::Drums:
+        opts |= RB::OptionWindowShort
+            | RB::OptionTransientsCrisp;
+        break;
+
+    case StemType::Bass:
+        opts |= RB::OptionWindowLong
+            | RB::OptionPitchHighQuality;
+        break;
+
+    case StemType::Other:
+    default:
+		opts |= RB::OptionWindowLong
+            | RB::OptionPitchHighQuality;
+
+        break;
     }
 
-    // Retrieve all processed output
-    int available = static_cast<int>(stretcher.available());
-    DBG("requested tempoRatio: " << tempoRatio
-        << ", timeRatio used: " << timeRatio
-        << ", output ratio: " << (double)available / totalSamples
-        << " (" << available << "/" << totalSamples << ")");
+    RB stretcher(sr, channels, opts);
 
-    stretchedBuffer.setSize(channels, available);
+    // 3) Tell it how much to stretch by
+    //    (e.g. originalTempo/targetTempo, which you’ve inverted as 1/tempoRatio)
+    stretcher.setTimeRatio(1.0 / tempoRatio);
+    stretcher.setPitchScale(1.0);
+    DBG("Stretcher set with Time Ratio " << (1.0 / tempoRatio));
+		
+
+    // 4) Process *all* the samples in one go, marking it final
+    std::vector<float*> inPtrs(channels);
+    for (int ch = 0; ch < channels; ++ch)
+        inPtrs[ch] = const_cast<float*>(input.getReadPointer(ch));
+    stretcher.process(inPtrs.data(), size_t(totalSamples), /*isFinal=*/true);
+
+    // 5) How many output samples are ready?
+    int outSamples = int(stretcher.available());
+
+    // 6) Allocate the exact buffer size and set up pointers
+    stretchedBuffer.setSize(channels, outSamples);
     std::vector<float*> outPtrs(channels);
     for (int ch = 0; ch < channels; ++ch)
         outPtrs[ch] = stretchedBuffer.getWritePointer(ch);
 
-    int fetched = 0;
-    int writePos = 0;
-    while ((fetched = static_cast<int>(stretcher.retrieve(outPtrs.data(), available))) > 0)
-    {
-        for (int ch = 0; ch < channels; ++ch)
-            outPtrs[ch] += fetched;
-        writePos += fetched;
-        available = static_cast<int>(stretcher.available());
-    }
+    // 7) Retrieve *all* the stretched data in one call
+    stretcher.retrieve(outPtrs.data(), size_t(outSamples));
 
-    // Final diagnostic
-    DBG("Stem pre‑stretched: " << writePos << " samples at " << sr << " Hz");
+    // 8) Reset your read head for playback
+    readPosition = 0;
+
+    DBG("Stem pre-stretched: " << outSamples << " samples at " << sr << " Hz");
 }
