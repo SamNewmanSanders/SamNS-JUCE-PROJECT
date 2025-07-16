@@ -22,7 +22,6 @@ public:
     void setStemVolume(StemType stemType, float newVolume);
 
     juce::String getName() const { return songName; }
-    /*void setTempoRatio(float newRatio);*/
 
 private:
     bool loadFromFolder(const juce::File& folder);
@@ -31,8 +30,9 @@ private:
     StemMixer stemMixer;
     juce::String songName;
 
-    float currentTempoRatio = 1.0f;
-    double currentSampleRate = 44100.0;
+    float currentTempoRatio = 0.8f;
+    double currentSampleRate = 0.0;
+
     std::unique_ptr<juce::ThreadPool> pool;
 
     juce::AudioBuffer<float> tempBuffer;

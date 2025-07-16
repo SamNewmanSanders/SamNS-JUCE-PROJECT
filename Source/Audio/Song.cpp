@@ -35,11 +35,7 @@ bool Song::loadFromFolder(const juce::File& folder)
             DBG("Missing stem: " << file.getFullPathName());
     }
 
-	DBG("Current tempo ratio: " << currentTempoRatio);
-
-    // Synchronously pre-stretch each stem
-    
-    stemMixer.preStretchStems(currentTempoRatio);
+    DBG("Current tempo ratio: " << currentTempoRatio);
 }
 
 void Song::addStem(const juce::File& file, StemType stemType)
@@ -48,10 +44,20 @@ void Song::addStem(const juce::File& file, StemType stemType)
     stemMixer.addStem(std::move(stem));
 }
 
-void Song::prepareToPlay(int samplesPerBlockExpected, double sr)
+void Song::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
 {
-    currentSampleRate = sr;
-    stemMixer.prepareToPlay(samplesPerBlockExpected, currentSampleRate);
+    currentSampleRate = sampleRate;
+
+    // 1) Create thread pool once (use e.g. 2 threads per core)
+    if (!pool)
+        pool = std::make_unique<juce::ThreadPool>(4);
+
+    // 2) Let mixer / stems prepare their audio callbacks
+    stemMixer.prepareToPlay(samplesPerBlockExpected, sampleRate);
+
+    // 3) Kick off asynchronous stretching of each stem
+    for (auto& stem : stemMixer.getStems())
+        stem->startStretching(*pool, currentTempoRatio, currentSampleRate);
 }
 
 
@@ -84,8 +90,3 @@ void Song::setStemVolume(StemType stemType, float newVolume)
 {
     stemMixer.setStemVolume(stemType, newVolume);
 }
-
-//void Song::setTempoRatio(float newRatio)
-//{
-//    currentTempoRatio = newRatio;
-//}

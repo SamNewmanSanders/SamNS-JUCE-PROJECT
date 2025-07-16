@@ -95,13 +95,3 @@ void StemMixer::setStemVolume(StemType stemType, float newVolume)
 		}
 	}
 }
-
-
-void StemMixer::preStretchStems(double tempoRatio)
-{
-    DBG(">>> StemMixer stretching all stems with ratio: " << tempoRatio);
-    for (auto& stem : stems)
-    {
-        stem->preStretch(tempoRatio);
-    }
-}
