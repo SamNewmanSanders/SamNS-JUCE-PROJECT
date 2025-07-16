@@ -32,6 +32,7 @@ void StemMixer::getNextAudioBlock(const juce::AudioSourceChannelInfo& bufferToFi
 
     for (auto& stem : stems)
     {
+        mixBuffer.clear();
 
         // Let the stem write its output into mixBuffer directly (overwrite each time)
         stem->getNextAudioBlock(mixInfo);
@@ -44,8 +45,6 @@ void StemMixer::getNextAudioBlock(const juce::AudioSourceChannelInfo& bufferToFi
                 mixBuffer, channel, 0,
                 bufferToFill.numSamples, vol);
         }
-
-        mixBuffer.clear(); // Clear after using for this stem, ready for next one
     }
 }
 

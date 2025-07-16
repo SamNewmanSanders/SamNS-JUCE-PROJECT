@@ -36,6 +36,8 @@ private:
     float volume = 1.0f;
     bool paused = true;
 
+	double currentSampleRate = 0.0;
+
     // For file reading
     juce::AudioFormatManager formatManager;
     std::unique_ptr<juce::AudioFormatReader> reader;

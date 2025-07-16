@@ -15,13 +15,13 @@ Stem::~Stem()
 
 void Stem::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
 {
-    //transportSource.prepareToPlay(samplesPerBlockExpected, sampleRate);
+    currentSampleRate = sampleRate;
 }
 
 
 void Stem::getNextAudioBlock(const juce::AudioSourceChannelInfo& info)
 {
-    /*if (paused||!stretchingFinished)
+    if (paused||!stretchingFinished)
     {
         info.clearActiveBufferRegion();
         return;
@@ -42,24 +42,7 @@ void Stem::getNextAudioBlock(const juce::AudioSourceChannelInfo& info)
         if (toCopy < blockSz)
             buffer->clear(ch, start + toCopy, blockSz - toCopy);
     }
-    readPosition += toCopy;*/
-
-    auto* buffer = info.buffer;
-    auto start = info.startSample;
-    auto numSamps = info.numSamples;
-    static double phase = 0.0;
-    auto sr = 48000;  // assuming you’ve stored it in prepareToPlay
-
-    for (int ch = 0; ch < buffer->getNumChannels(); ++ch)
-    {
-        auto* data = buffer->getWritePointer(ch);
-        for (int i = 0; i < numSamps; ++i)
-        {
-            data[start + i] = float(std::sin(phase));
-            phase += 2.0 * 3.14 * 440.0 / sr;
-            if (phase > 2.0 * 3.14) phase -= 2.0 * 3.14;
-        }
-    }
+    readPosition += toCopy;
 }
 
 
