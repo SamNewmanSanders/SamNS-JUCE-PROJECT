@@ -8,7 +8,7 @@
 class Song : public juce::AudioSource
 {
 public:
-    explicit Song(const juce::File& folder, juce::String songName);
+    explicit Song(const juce::File& folder, juce::String songName, int selectedtempooncreation);
     ~Song() override;
 
     void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override;
@@ -21,7 +21,10 @@ public:
     void setStemMute(StemType stemType, bool mute);
     void setStemVolume(StemType stemType, float newVolume);
 
+    void setTempoOnCreation(int tempo);
+
     juce::String getName() const { return songName; }
+	double getBpmFromJsonFile(const juce::File& jsonFile);
 
 private:
     bool loadFromFolder(const juce::File& folder);
@@ -30,7 +33,9 @@ private:
     StemMixer stemMixer;
     juce::String songName;
 
-    float currentTempoRatio = 0.8f;
+    float originalTempo;
+	int selectedTempoOnCreation; // Default tempo, can be overridden
+    float currentTempoRatio = 0.91875f; //Think this fixes samplerate bug i cba to figure out (44100/48000)
     double currentSampleRate = 0.0;
 
     std::unique_ptr<juce::ThreadPool> pool;

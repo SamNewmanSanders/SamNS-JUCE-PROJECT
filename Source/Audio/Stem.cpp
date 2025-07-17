@@ -115,6 +115,7 @@ void Stem::performStretch(double tempoRatio, double sampleRate)
     RB stretcher(sampleRate, channels, opts);
     double tb = 1.0 / tempoRatio;  // if tempoRatio was “BPM out / BPM in”
     stretcher.setTimeRatio(tb);
+    stretcher.setPitchScale(0.91875f); //Think this fixes samplerate bug i cba to figure out (44100/48000)
     DBG("Configured stretcher with timeRatio=" << stretcher.getTimeRatio());
 
     // 3) Tell it upfront how many input frames

@@ -24,13 +24,18 @@ public:
     void setStemMute(const juce::String& songId, StemType stemType, bool mute);
     void setStemVolume(const juce::String& songId, StemType stemType, float newVolume);
 
+    void setTempo(int newTempo) { currentSelectedTempo = newTempo; }
+
     juce::String getSongName(const juce::String& songId) const;
     std::vector<juce::String> getAvailableSongNames() const;
     int getNumSongs() const;
 
+
 private:
     AudioEngine& audioEngine;
     juce::File rootFolder;
+
+    int currentSelectedTempo = 0;  // holds the UI’s BPM right up to load
 
     std::unordered_map<juce::String, std::shared_ptr<Song>> loadedSongsById;
 

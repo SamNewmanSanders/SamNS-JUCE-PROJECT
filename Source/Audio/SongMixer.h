@@ -26,4 +26,5 @@ public:
 
 private:
     std::vector<std::shared_ptr<Song>> songs;
+    double currentSelectedTempo;
 };

@@ -1,26 +1,51 @@
+﻿// MainUI.cpp
 #include "MainUI.h"
 
 namespace
 {
     constexpr int kPadding = 10;
-    constexpr int kSelectorHeight = 70; // Shared constant controlling selector & top region
+    constexpr int kSelectorHeight = 70;   // original song-browser height
     constexpr int kGridGap = 5;
     constexpr int kGridCols = 2;
     constexpr int kGridRows = 2;
     constexpr int kMaxSongComponents = kGridCols * kGridRows;
+
+    constexpr int kTempoLabelWidth = 60;
+    constexpr int kTempoEditorWidth = 80;
+    // Height of text + a little vertical padding
+    constexpr int kTempoTextHeight = 24;
 }
 
 MainUI::MainUI(SessionManager& sm)
     : sessionManager(sm)
 {
-    addAndMakeVisible(songBrowser);
+    // ——— Tempo label setup ———
+    tempoLabel.setText("Tempo:", juce::dontSendNotification);
+    tempoLabel.setFont({ 15.0f, juce::Font::bold });
+    tempoLabel.setJustificationType(juce::Justification::centredLeft);
+    addAndMakeVisible(tempoLabel);
 
-    songBrowser.setSongNames(sessionManager.getAvailableSongNames());
+    // ——— Tempo editor setup ———
+    tempoEditor.setInputRestrictions(3, "0123456789");
+    tempoEditor.setText("135");
+    tempoEditor.setJustification(juce::Justification::centred);
+    addAndMakeVisible(tempoEditor);
 
-    songBrowser.onSongSelected = [this](const juce::String& selectedName)
+    // ←—— HERE: wire up the callback to SessionManager:
+    tempoEditor.onReturnKey = [this]()
         {
-            handleSongSelected(selectedName);
+            int newTempo = tempoEditor.getText().getIntValue();
+            if (newTempo > 0)
+            {
+                sessionManager.setTempo(newTempo);
+                DBG("SessionManager::setTempo called with " << newTempo);
+            }
         };
+
+    // ——— Song browser setup ———
+    addAndMakeVisible(songBrowser);
+    songBrowser.setSongNames(sessionManager.getAvailableSongNames());
+    songBrowser.onSongSelected = [this](auto name) { handleSongSelected(name); };
 
     DBG("Song selector callback connected");
 }
@@ -51,51 +76,65 @@ void MainUI::handleSongSelected(const juce::String& selectedSongName)
 
 void MainUI::paint(juce::Graphics& g)
 {
+    g.fillAll(juce::Colours::darkgrey);
     g.setColour(juce::Colours::white);
 
     auto bounds = getLocalBounds().reduced(kPadding);
-    bounds.removeFromTop(kSelectorHeight + kGridGap);
+    auto gridStart = bounds.removeFromTop(kSelectorHeight + kGridGap);
 
-    int cellWidth = bounds.getWidth() / kGridCols;
-    int cellHeight = bounds.getHeight() / kGridRows;
+    int cellW = bounds.getWidth() / kGridCols;
+    int cellH = bounds.getHeight() / kGridRows;
 
-    for (int row = 0; row < kGridRows; ++row)
-    {
-        for (int col = 0; col < kGridCols; ++col)
-        {
-            g.drawRect(bounds.getX() + col * cellWidth,
-                bounds.getY() + row * cellHeight,
-                cellWidth,
-                cellHeight,
-                1);
-        }
-    }
+    for (int r = 0; r < kGridRows; ++r)
+        for (int c = 0; c < kGridCols; ++c)
+            g.drawRect(bounds.getX() + c * cellW,
+                bounds.getY() + r * cellH,
+                cellW, cellH, 1);
 }
 
 void MainUI::resized()
 {
-    auto area = getLocalBounds().reduced(kPadding);
+    auto fullBounds = getLocalBounds().reduced(kPadding);
+    int  w = getWidth();
 
-    // Set selector bounds
-    songBrowser.setBounds(area.getX(), area.getY(), area.getWidth(), kSelectorHeight);
+    // === Song selector (centered at top) ===
+    int selectorW = w / 4;
+    int selectorX = (w - selectorW) / 2;
+    songBrowser.setBounds(selectorX,
+        kPadding,
+        selectorW,
+        kSelectorHeight);
 
-    // Area below selector for grid
-    auto gridArea = area.withTrimmedTop(kSelectorHeight + kGridGap);
+    // === Tempo controls (top-right, text‑height tall, vertically centered) ===
+    int tempoY = kPadding + (kSelectorHeight - kTempoTextHeight) / 2;
+    int editorX = w - kPadding - kTempoEditorWidth;
+    tempoEditor.setBounds(editorX,
+        tempoY,
+        kTempoEditorWidth,
+        kTempoTextHeight);
 
-    int cellWidth = gridArea.getWidth() / kGridCols;
-    int cellHeight = gridArea.getHeight() / kGridRows;
+    int labelX = editorX - kGridGap - kTempoLabelWidth;
+    tempoLabel.setBounds(labelX,
+        tempoY,
+        kTempoLabelWidth,
+        kTempoTextHeight);
+
+    // === Grid area (below selector) ===
+    auto gridArea = getLocalBounds().reduced(kPadding);
+    gridArea.removeFromTop(kSelectorHeight + kGridGap);
+
+    int cellW = gridArea.getWidth() / kGridCols;
+    int cellH = gridArea.getHeight() / kGridRows;
 
     for (size_t i = 0; i < songComponents.size(); ++i)
     {
         if (songComponents[i])
         {
-            int col = static_cast<int>(i) % kGridCols;
-            int row = static_cast<int>(i) / kGridCols;
-
-            songComponents[i]->setBounds(gridArea.getX() + col * cellWidth,
-                gridArea.getY() + row * cellHeight,
-                cellWidth,
-                cellHeight);
+            int col = (int)i % kGridCols;
+            int row = (int)i / kGridCols;
+            songComponents[i]->setBounds(gridArea.getX() + col * cellW,
+                gridArea.getY() + row * cellH,
+                cellW, cellH);
         }
     }
 }

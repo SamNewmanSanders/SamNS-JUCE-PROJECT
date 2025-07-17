@@ -13,6 +13,7 @@ SongMixer::~SongMixer()
 
 void SongMixer::addSong(std::shared_ptr<Song> song)
 {
+	song->setTempoOnCreation(currentSelectedTempo); // Set initial tempo on creation
     songs.push_back(std::move(song));
 }
 

@@ -1,4 +1,6 @@
+// MainUI.h
 #pragma once
+
 #include <JuceHeader.h>
 #include "../Controllers/SessionManager.h"
 #include "SongBrowserComponent.h"
@@ -16,10 +18,13 @@ private:
     void handleSongSelected(const juce::String& name);
 
     SessionManager& sessionManager;
-    SongBrowserComponent songBrowser;
 
+    juce::Label      tempoLabel;
+    juce::TextEditor tempoEditor;
+
+    SongBrowserComponent                       songBrowser;
     std::vector<std::unique_ptr<SongComponent>> songComponents;
-    int songSlotCounter = 0;
+    int                                         songSlotCounter = 0;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainUI)
 };

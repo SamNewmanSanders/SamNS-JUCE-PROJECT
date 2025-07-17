@@ -12,23 +12,20 @@ SessionManager::~SessionManager()
 
 juce::String SessionManager::loadSong(const juce::String& folderName)
 {
-    if (loadedSongsById.find(folderName) != loadedSongsById.end())
-    {
-        DBG("Song already loaded: " + folderName);
+    if (loadedSongsById.count(folderName))
         return folderName;
-    }
 
     auto folder = rootFolder.getChildFile(folderName);
     if (!folder.isDirectory())
-    {
-        DBG("SessionManager: Invalid folder: " + folderName);
-        return {}; // empty string = failure
-    }
+        return {};
 
-    auto songPtr = std::make_shared<Song>(folder, folderName);
+    // Here we pass the tempo straight into Song’s ctor:
+    auto songPtr = std::make_shared<Song>(folder,
+        folderName,
+        currentSelectedTempo);
+
     audioEngine.addSong(songPtr);
     loadedSongsById[folderName] = songPtr;
-
     return folderName;
 }
 
